@@ -11,7 +11,7 @@ export default function Login() {
 
 	return (
 		<div>
-			{forgotPasswordActive ? (
+			{!forgotPasswordActive ? (
 				<LoginForm formToggler={formToggler} />
 			) : (
 				<ForgotPassForm formToggler={formToggler} />
