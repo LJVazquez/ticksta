@@ -31,7 +31,7 @@ export default function Header() {
 				>
 					<ul className="navbar-nav">
 						<li className="nav-item">
-							<Link to="/" className="nav-link active">
+							<Link to="/dashboard" className="nav-link active">
 								Dashboard
 							</Link>
 						</li>

@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int             @id @default(autoincrement())
+  name              String
+  email             String          @unique
+  password          String
+  role              Role
+  jwtRefresh        String?         @db.LongText
+  jwtRefreshDate    DateTime?
+  resetPasswordCode String?
+  tickets           Ticket[]
+  ticketMessages    TicketMessage[]
+}
+
+model Ticket {
+  id             Int             @id @default(autoincrement())
+  subject        String
+  description    String
+  createdAt      DateTime        @default(now())
+  status         TicketStatus    @default(OPEN)
+  user           User            @relation(fields: [userId], references: [id])
+  userId         Int
+  ticketMessages TicketMessage[]
+}
+
+model TicketMessage {
+  id        Int      @id @default(autoincrement())
+  message   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  ticketId  Int
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum TicketStatus {
+  OPEN
+  INPROG
+  PENDING
+  RESOLVED
+  CLOSED
+}
