@@ -7,14 +7,15 @@ const {
 	updateTicket,
 	getTicketsByUserId,
 	createTicketMessage,
+	getLatestTickets,
 } = require('../controllers/Ticket');
 const { authorizeRole } = require('../middleware/authMiddleware');
 
 router.get('/', authorizeRole('ADMIN'), getTickets);
 router.get('/:id', getTicketById);
 router.get('/user/:id', getTicketsByUserId);
-router.post('/', createTicket, authorizeRole('USER'));
-router.post('/:id/messages', createTicketMessage);
-router.patch('/:id', authorizeRole('USER'), updateTicket);
+router.get('/latest/:amount', authorizeRole('ADMIN'), getLatestTickets);
+router.post('/', authorizeRole('USER'), createTicket);
+router.patch('/:id', authorizeRole('ADMIN'), updateTicket);
 
 module.exports = router;

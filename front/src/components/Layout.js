@@ -1,15 +1,18 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Breadcrumbs from './Breadcrumbs';
 
 export default function Layout({ children }) {
 	return (
-		<div>
-			<Header />
-			<Breadcrumbs />
-			<div className="container my-3">{children}</div>
+		<>
+			<div
+				className="bg-light pb-4"
+				style={{ minHeight: 'calc(100vh - 100px)' }}
+			>
+				<Header />
+				<div className="container">{children}</div>
+			</div>
 			<Footer />
-		</div>
+		</>
 	);
 }

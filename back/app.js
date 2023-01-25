@@ -7,6 +7,7 @@ const PORT = 3001;
 
 const userRouter = require('./routes/User.js');
 const ticketRouter = require('./routes/Ticket.js');
+const ticketMessageRouter = require('./routes/TicketMessage.js');
 const authRouter = require('./routes/Auth.js');
 const { authorizeUser } = require('./middleware/authMiddleware');
 
@@ -14,8 +15,9 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 
-app.use('/users', authorizeUser, userRouter);
+app.use('/users', userRouter);
 app.use('/tickets', authorizeUser, ticketRouter);
+app.use('/ticketmessages', authorizeUser, ticketMessageRouter);
 app.use('/auth', authRouter);
 
 app.use('*', (req, res) => {

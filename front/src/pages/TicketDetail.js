@@ -1,70 +1,52 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import TicketMessages from '../components/TicketMessages';
-import { useParams } from 'react-router-dom';
+import { fetchTicketById } from '../services/tickets';
+import { AuthContext } from '../context/AuthContext';
 
-const mockTicket = {
-	id: 1,
-	status: 'Cabra',
-	subject: 'Problema con Tero en el servidor principal',
-	createdAt: '2020-09-23',
-	messages: [
-		{
-			createdAt: '20/10/22',
-			body: 'Problema con Tero en el servidor principal',
-			sentBy: 'Cliente',
-		},
-		{
-			createdAt: '20/10/22',
-			body: 'Estamos en el tema señor tero por favor espere',
-			sentBy: 'Admin jebra',
-		},
-	],
-};
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
+import TicketDetailData from '../components/TicketDetailData';
+import NewMessageForm from '../components/NewMessageForm';
+import usePagination from '../hooks/usePagination';
 
 export default function TicketDetail() {
-	const [ticket, setTicket] = useState(mockTicket);
-	const [ticketResponse, setTicketResponse] = useState('');
-	const ticketId = useParams('id');
+	const [ticket, setTicket] = useState();
+	const [ticketMessages, setTicketMessages] = useState(null);
 
-	console.log('ticketId', ticketId);
+	const { ticketId } = useParams();
+	const { authToken } = useContext(AuthContext);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log('ticketResponse', ticketResponse);
-		setTicketResponse('');
-	};
+	const handleError = useHandleAxiosError();
+
+	useEffect(() => {
+		const fetchTicketData = async () => {
+			try {
+				const ticketData = await fetchTicketById(parseInt(ticketId), authToken);
+				setTicket(ticketData);
+				setTicketMessages(ticketData.ticketMessages);
+			} catch (e) {
+				handleError(e);
+			}
+		};
+		fetchTicketData();
+	}, []);
+
+	const [paginatedMessages, PaginationButtons] = usePagination(
+		ticketMessages,
+		5
+	);
+
+	const getSkeleton = () => {};
 
 	return (
 		<Layout>
-			<div className="row mb-3">
-				<div className="col-12 col-md">
-					<p className="mb-1">Tema: {mockTicket.subject}</p>
-					<p className="mb-1">Fecha creacion: {mockTicket.createdAt}</p>
-					<p className="mb-1">
-						Estado: <span className="badge text-bg-info">{ticket.status}</span>
-					</p>
-				</div>
-				<div className="col-12 col-md text-end">
-					<button className="btn btn-secondary">Cerrar Ticket</button>
-				</div>
-			</div>
-			<TicketMessages messages={ticket.messages} />
-			<form className="mb-3" onSubmit={(e) => handleSubmit(e)}>
-				<p>Responder</p>
-				<div className="form-floating mb-3">
-					<textarea
-						className="form-control"
-						id="responseField"
-						style={{ height: 100 }}
-						value={ticketResponse}
-						onChange={(e) => setTicketResponse(e.target.value)}
-						required
-					/>
-					<label htmlFor="responseField">Descripcion</label>
-				</div>
-				<button className="btn btn-primary">Enviar</button>
-			</form>
+			<TicketDetailData ticket={ticket} setTicket={setTicket} />
+			<TicketMessages messages={paginatedMessages} />
+			<PaginationButtons />
+			{ticket && ticket?.status !== 'CLOSED' && (
+				<NewMessageForm setTicketMessages={setTicketMessages} />
+			)}
 		</Layout>
 	);
 }

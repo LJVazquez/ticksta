@@ -1,51 +1,55 @@
 import Home from './pages/Home';
-import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import NewTicket from './pages/NewTicket';
 import Tickets from './pages/Tickets';
 import TicketDetail from './pages/TicketDetail';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Login';
+import RegisterUser from './pages/RegisterUser';
 
 function App() {
 	return (
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/login" element={<Login />} />
-			<Route
-				path="/dashboard"
-				element={
-					<ProtectedRoute>
-						<Dashboard />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="tickets"
-				element={
-					<ProtectedRoute>
-						<Tickets />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="ticket-detail/:id"
-				element={
-					<ProtectedRoute>
-						<TicketDetail />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="new-ticket"
-				element={
-					<ProtectedRoute>
-						<NewTicket />
-					</ProtectedRoute>
-				}
-			/>
-		</Routes>
+		<AuthProvider>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<RegisterUser />} />
+				<Route
+					path="/dashboard"
+					element={
+						<ProtectedRoute authRoles={['ADMIN']}>
+							<Dashboard />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="tickets"
+					element={
+						<ProtectedRoute>
+							<Tickets />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="ticket-detail/:ticketId"
+					element={
+						<ProtectedRoute>
+							<TicketDetail />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="new-ticket"
+					element={
+						<ProtectedRoute authRoles={['USER']}>
+							<NewTicket />
+						</ProtectedRoute>
+					}
+				/>
+			</Routes>
+		</AuthProvider>
 	);
 }
 

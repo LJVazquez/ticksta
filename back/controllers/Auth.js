@@ -3,25 +3,41 @@ const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
+const { validateLoginData } = require('../utils/schemaValidators');
 
 const login = async (req, res) => {
-	const userEmail = req.body.email;
-	const userPassword = req.body.password;
+	const email = req.body.email;
+	const password = req.body.password;
+
+	const validationErrors = validateLoginData({ email, password });
+
+	if (validationErrors) {
+		return res.status(409).json({ error: validationErrors });
+	}
 
 	try {
-		const user = await getUserByEmail(userEmail);
-		const passwordMatches = await bcrypt.compare(userPassword, user.password);
+		const user = await getUserByEmail(email);
+
+		if (!user) {
+			return res
+				.status(401)
+				.json({ error: 'Email y/o contraseña incorrecto/s' });
+		}
+
+		const passwordMatches = await bcrypt.compare(password, user.password);
+		delete user.password;
 
 		if (passwordMatches) {
 			const tokenData = {
 				userId: user.id,
 				email: user.email,
+				name: user.name,
 				userRole: user.role,
 			};
 			const jwt = await createToken(tokenData);
 			const jwtRefresh = await createRefreshToken(tokenData);
 
-			storeRefreshToken(userEmail, jwtRefresh);
+			storeRefreshToken(email, jwtRefresh);
 
 			res.json({ jwt });
 		} else {
@@ -33,6 +49,11 @@ const login = async (req, res) => {
 		console.error(e.message);
 		res.status(500).json({ error: e.message });
 	}
+};
+
+const getLoggedUserData = (req, res) => {
+	const authData = req.authData;
+	res.json(authData);
 };
 
 //TODO
@@ -72,7 +93,7 @@ const getUserByEmail = async (email, password) => {
 
 const createToken = async (data) => {
 	const token = await jwt.sign(data, process.env.TOKEN_SECRET, {
-		expiresIn: '1h',
+		expiresIn: '10h',
 	});
 	return token;
 };
@@ -117,4 +138,4 @@ const storeResetPasswordCode = async (email, code) => {
 	}
 };
 
-module.exports = { login, resetPassword };
+module.exports = { login, resetPassword, getLoggedUserData };

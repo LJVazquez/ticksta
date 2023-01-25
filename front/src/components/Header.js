@@ -1,18 +1,24 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import logo from '../img/logo.png';
 
 export default function Header() {
-	const navigate = useNavigate();
+	const { authUser, setAuthUser, setAuthToken } = useContext(AuthContext);
+	const { userRole } = authUser;
 
 	const logOut = () => {
-		navigate('/login');
+		setAuthUser(null);
+		setAuthToken(null);
+		window.sessionStorage.removeItem('authUser');
+		window.localStorage.removeItem('authToken');
 	};
 
 	return (
-		<nav className="navbar navbar-expand-lg bg-primary mb-3">
-			<div className="container-fluid">
+		<nav className="navbar navbar-expand-lg bg-dark navbar-dark mb-3">
+			<div className="container">
 				<Link className="navbar-brand" to="/">
-					Logo
+					<img src={logo} alt="logo" height={30} />
 				</Link>
 				<button
 					className="navbar-toggler"
@@ -30,18 +36,21 @@ export default function Header() {
 					id="navbarNav"
 				>
 					<ul className="navbar-nav">
-						<li className="nav-item">
-							<Link to="/dashboard" className="nav-link active">
-								Dashboard
-							</Link>
-						</li>
+						{userRole === 'ADMIN' && (
+							<li className="nav-item">
+								<Link to="/dashboard" className="nav-link active">
+									Dashboard
+								</Link>
+							</li>
+						)}
+
 						<li className="nav-item">
 							<Link to="/tickets" className="nav-link active">
 								Tickets
 							</Link>
 						</li>
 					</ul>
-					<button className="btn btn-danger" onClick={logOut}>
+					<button className="btn btn-outline-danger" onClick={logOut}>
 						Logout
 					</button>
 				</div>

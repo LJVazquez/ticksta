@@ -1,20 +1,32 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+const {
+	validateTicketCreationData,
+	validateTicketUpdateData,
+	validateTicketMessageCreationData,
+} = require('../utils/schemaValidators.js');
+
 const getTickets = async (req, res) => {
 	try {
 		const tickets = await prisma.ticket.findMany({});
 
 		res.json(tickets);
 	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
 	}
 };
 
 const createTicket = async (req, res) => {
 	const data = req.body;
 	const authUserId = req.authData.userId;
+
+	const validationErrors = validateTicketCreationData(data);
+
+	if (validationErrors) {
+		return res.status(409).json({ error: validationErrors });
+	}
 
 	try {
 		const newTicket = await prisma.ticket.create({
@@ -23,8 +35,8 @@ const createTicket = async (req, res) => {
 
 		res.json(newTicket);
 	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
 	}
 };
 
@@ -36,7 +48,12 @@ const getTicketById = async (req, res) => {
 		const ticket = await prisma.ticket.findUnique({
 			where: { id: ticketId },
 			include: {
-				ticketMessages: { include: { user: { select: { name: true } } } },
+				ticketMessages: {
+					include: {
+						user: { select: { name: true } },
+					},
+					orderBy: { createdAt: 'desc' },
+				},
 			},
 		});
 
@@ -49,8 +66,8 @@ const getTicketById = async (req, res) => {
 
 		res.json(ticket);
 	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
 	}
 };
 
@@ -68,14 +85,41 @@ const getTicketsByUserId = async (req, res) => {
 		});
 		res.json(tickets);
 	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
+	}
+};
+
+const getLatestTickets = async (req, res) => {
+	const ticketsAmount = parseInt(req.params.amount);
+	authUserData = req.authData;
+
+	if (isNaN(ticketsAmount)) {
+		return res.status(400).json({ error: 'Bad request' });
+	}
+
+	try {
+		const tickets = await prisma.ticket.findMany({
+			take: ticketsAmount,
+			orderBy: { createdAt: 'desc' },
+		});
+
+		res.json(tickets);
+	} catch (e) {
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
 	}
 };
 
 const updateTicket = async (req, res) => {
 	const ticketId = parseInt(req.params.id);
 	const data = req.body;
+
+	const validationErrors = validateTicketUpdateData(data);
+
+	if (validationErrors) {
+		return res.status(409).json({ error: validationErrors });
+	}
 
 	try {
 		const updatedTicket = await prisma.ticket.update({
@@ -85,8 +129,8 @@ const updateTicket = async (req, res) => {
 
 		res.json(updatedTicket);
 	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
 	}
 };
 
@@ -94,6 +138,12 @@ const createTicketMessage = async (req, res) => {
 	const data = req.body;
 	const ticketId = parseInt(req.params.id);
 	const authUserData = req.authData;
+
+	const validationErrors = validateTicketMessageCreationData(data);
+
+	if (validationErrors) {
+		return res.status(409).json({ error: validationErrors });
+	}
 
 	try {
 		const ticket = await prisma.ticket.findUnique({ where: { id: ticketId } });
@@ -106,13 +156,37 @@ const createTicketMessage = async (req, res) => {
 		}
 
 		const newMessage = await prisma.ticketMessage.create({
-			data: { ...data, ticketId, userId: authUserData.userId },
+			data: {
+				...data,
+				ticketId,
+				userId: authUserData.userId,
+			},
+			include: {
+				user: { select: { name: true } },
+			},
 		});
 
 		res.json(newMessage);
 	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
+		console.error(e);
+		res.status(500).json({ error: e.meta });
+	}
+};
+
+const getLatestMessages = async (req, res) => {
+	const messagesAmount = parseInt(req.params.amount);
+	authUserData = req.authData;
+
+	try {
+		const messages = await prisma.ticketMessage.findMany({
+			take: messagesAmount,
+			orderBy: { createdAt: 'desc' },
+		});
+
+		res.json(messages);
+	} catch (e) {
+		console.error(e);
+		res.status(500).json({ error: e.meta.cause });
 	}
 };
 
@@ -123,4 +197,6 @@ module.exports = {
 	getTicketsByUserId,
 	updateTicket,
 	createTicketMessage,
+	getLatestTickets,
+	getLatestMessages,
 };

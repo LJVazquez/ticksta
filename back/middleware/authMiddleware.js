@@ -13,13 +13,18 @@ const authorizeUser = async (req, res, next) => {
 		const decodedToken = await jwt.verify(token, process.env.TOKEN_SECRET);
 
 		if (!decodedToken) {
-			return res.status(403).json({ error: 'token incorrecto' });
+			return res.status(401).json({ error: 'token incorrecto' });
 		}
 
 		req.authData = decodedToken;
 		next();
 	} catch (e) {
 		console.error('e.message', e.message);
+
+		if (e.name === 'TokenExpiredError') {
+			return res.status(401).json({ error: e.message });
+		}
+
 		res.status(500).json({ error: e.message });
 	}
 };
@@ -29,7 +34,7 @@ function authorizeRole(requiredRole) {
 		const userRole = req.authData.userRole;
 
 		if (userRole !== requiredRole) {
-			return res.status(401).json({ error: 'Unauthorized' });
+			return res.status(403).json({ error: 'Unauthorized' });
 		}
 		next();
 	};

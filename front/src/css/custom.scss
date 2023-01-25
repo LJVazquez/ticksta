@@ -1,0 +1,20 @@
+$primary: #347df8;
+$secondary: #b3b3cc;
+$success: #6ae4c1;
+$info: #6adee4;
+$warning: #f3b984;
+$danger: #ed77a4;
+$light: #f6f6fa;
+$dark: #211e31;
+
+$utilities-bg-subtle: (
+	'dark-subtle': #2a2a3d,
+);
+
+$pagination-color: $dark;
+$pagination-active-bg: $info;
+$pagination-active-border-color: $info;
+
+$border-radius: 3px;
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';

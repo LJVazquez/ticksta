@@ -6,11 +6,14 @@ const {
 	createUser,
 	updateUser,
 } = require('../controllers/User');
-const { authorizeRole } = require('../middleware/authMiddleware');
+const {
+	authorizeUser,
+	authorizeRole,
+} = require('../middleware/authMiddleware');
 
-router.get('/', authorizeRole('ADMIN'), getUsers);
-router.get('/:id', authorizeRole('ADMIN'), getUserById);
-router.post('/', authorizeRole('ADMIN'), createUser);
-router.patch('/:id', authorizeRole('ADMIN'), updateUser);
+router.get('/', authorizeUser, authorizeRole('ADMIN'), getUsers);
+router.get('/:id', authorizeUser, authorizeRole('ADMIN'), getUserById);
+router.post('/', createUser);
+router.patch('/:id', authorizeUser, authorizeRole('ADMIN'), updateUser);
 
 module.exports = router;
