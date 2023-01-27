@@ -56,32 +56,6 @@ const getLoggedUserData = (req, res) => {
 	res.json(authData);
 };
 
-//TODO
-const resetPassword = async (req, res) => {
-	const userEmail = req.body.email;
-
-	try {
-		const user = await getUserByEmail(userEmail);
-
-		if (!user) {
-			return res.status(400).json({ error: 'Email no encontrato' });
-		}
-
-		const resetPasswordCode = uuidv4();
-		const storedPasswordResetCode = storeResetPasswordCode(
-			userEmail,
-			resetPasswordCode
-		);
-
-		if (storedPasswordResetCode) {
-			res.send('to ok');
-		}
-	} catch (e) {
-		console.error(e.me);
-		return res.status(500).json({ error: e.message });
-	}
-};
-
 const getUserByEmail = async (email, password) => {
 	try {
 		return await prisma.user.findUnique({ where: { email: email } });
@@ -123,19 +97,4 @@ const storeRefreshToken = async (email, token) => {
 	}
 };
 
-const storeResetPasswordCode = async (email, code) => {
-	try {
-		const updatedUser = await prisma.user.update({
-			where: { email: email },
-			data: { resetPasswordCode: code },
-		});
-
-		if (updatedUser) {
-			return true;
-		}
-	} catch (e) {
-		console.error(e.message);
-	}
-};
-
-module.exports = { login, resetPassword, getLoggedUserData };
+module.exports = { login, getLoggedUserData };

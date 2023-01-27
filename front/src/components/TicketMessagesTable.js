@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/formats';
 
+import { motion } from 'framer-motion';
+
+const linkAnimationSettings = {
+	whileHover: {
+		scale: 1.01,
+	},
+};
+
 const getMessageRows = (messages) => {
 	return messages?.length > 0 ? (
 		messages.map((message) => {
@@ -12,12 +20,14 @@ const getMessageRows = (messages) => {
 					<td>{messageSubstr}</td>
 					<td>{message.user.name}</td>
 					<td>
-						<Link
-							to={`/ticket-detail/${message.ticket.id}`}
-							className="text-decoration-none"
-						>
-							{message.ticket.subject}
-						</Link>
+						<motion.div {...linkAnimationSettings}>
+							<Link
+								to={`/ticket-detail/${message.ticket.id}`}
+								className="text-decoration-none"
+							>
+								{message.ticket.subject}
+							</Link>
+						</motion.div>
 					</td>
 					<td>{createdAt}</td>
 				</tr>

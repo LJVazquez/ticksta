@@ -3,7 +3,7 @@ import Dashboard from './pages/Dashboard';
 import NewTicket from './pages/NewTicket';
 import Tickets from './pages/Tickets';
 import TicketDetail from './pages/TicketDetail';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';

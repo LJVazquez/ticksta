@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { motion } from 'framer-motion';
 
 export default function TicketsPageHeader(props) {
 	const { searchValue, setSearchValue, selectValue, setSelectValue } = props;
@@ -9,16 +10,18 @@ export default function TicketsPageHeader(props) {
 
 	return (
 		<div className="row mb-5 justify-content-between">
-			<div className="col-auto">
+			<motion.div layoutId="newTicketForm" className="col-auto">
 				{authUser.userRole === 'USER' && (
-					<Link to="/new-ticket" className="btn btn-sm mb-3 mb-md-0">
-						<i className="bi bi-plus-circle-fill"></i> Nuevo ticket
-					</Link>
+					<div>
+						<Link to="/new-ticket" className="btn btn-sm mb-3 mb-md-0">
+							<i className="bi bi-plus-circle-fill"></i> Nuevo ticket
+						</Link>
+					</div>
 				)}
-			</div>
+			</motion.div>
 			<div className="col-12 col-md-auto row">
 				<div className="col-12 col-md-auto">
-					<div className="input-group input-group-sm mb-3 mb-sm-0">
+					<div className="input-group input-group-sm mb-3 mb-md-0">
 						<span className="input-group-text bg-dark-subtle border-0 text-white">
 							<i className="bi bi-search"></i>
 						</span>

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import TicketsTable from '../components/TicketsTable';
-import { Link } from 'react-router-dom';
 import { fetchAllTickets, fetchTicketsByUserId } from '../services/tickets';
 import { AuthContext } from '../context/AuthContext';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';

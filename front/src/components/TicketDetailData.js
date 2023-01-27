@@ -18,17 +18,17 @@ export default function TicketDetailData({ ticket, setTicket }) {
 		return (
 			<div className="card p-3 mb-3 rounded-3">
 				<div className="row">
-					<div className="col-12 col-md-6">
+					<div className="col-12 col-md-8">
 						<div>
 							<small className="fw-bold">Tema:</small>
 							<p className="mb-1">{ticket.subject}</p>
-						</div>
+						</div>{' '}
 						<div>
-							<small className="fw-bold">Fecha creacion:</small>
-							<p className="mb-1">{createdAt}</p>
+							<small className="fw-bold">Descripcion:</small>
+							<p className="mb-1">{ticket.description}</p>
 						</div>
 					</div>
-					<div className="col-12 col-md-6">
+					<div className="col-12 col-md-4">
 						<div>
 							<small className="fw-bold d-block">Estado:</small>
 							<span className={`badge ${badgeColor}`}>
@@ -36,8 +36,8 @@ export default function TicketDetailData({ ticket, setTicket }) {
 							</span>
 						</div>
 						<div>
-							<small className="fw-bold">Descripcion:</small>
-							<p className="mb-1">{ticket.description}</p>
+							<small className="fw-bold">Fecha creacion:</small>
+							<p className="mb-1">{createdAt}</p>
 						</div>
 					</div>
 				</div>

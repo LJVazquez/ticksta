@@ -1,34 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
 import { createUser } from '../services/users';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
+import { registerInputConstraints } from '../utils/constraints';
+import { useState } from 'react';
 
-const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const inputConstraints = {
-	name: {
-		required: 'Por favor ingrese un nombre',
-		minLength: { value: 6, message: 'Minimo 6 caracteres' },
-		maxLength: { value: 30, message: 'Minimo 30 caracteres' },
-	},
-	email: {
-		required: 'Por favor ingrese un email',
-		pattern: {
-			value: emailRegex,
-			message: 'Email invalido',
-		},
-	},
-	password: {
-		required: 'Por favor ingrese una contraseña',
-		minLength: { value: 6, message: 'Minimo 6 caracteres' },
-		maxLength: { value: 30, message: 'Minimo 30 caracteres' },
-	},
-};
+import ticketHero from '../img/ticket-hero.png';
 
 export default function RegisterForm({ setIsUserCreated }) {
 	const [isLoading, setIsLoading] = useState(false);
+	const [registerError, setRegisterError] = useState(null);
+
 	const handleError = useHandleAxiosError();
 
 	const {
@@ -51,35 +34,46 @@ export default function RegisterForm({ setIsUserCreated }) {
 			}
 			setIsLoading(false);
 		} catch (e) {
+			setRegisterError(e.response.data.error);
 			setIsLoading(false);
 			handleError(e);
 		}
 	};
 
 	return (
-		<form className="card p-3" onSubmit={handleSubmit(onSubmit)}>
-			<h1>Crear nuevo usuario</h1>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<h1 className="text-center">
+				<img src={ticketHero} height="50" />
+				<br />
+				¿Sos nuevo? Registrate!
+			</h1>
+			{registerError && (
+				<div
+					className="alert alert-danger d-flex align-items-center"
+					role="alert"
+				>
+					{registerError}
+				</div>
+			)}
+
 			<Input
 				name={'Nombre'}
 				error={errors.name}
-				rhfData={register('name', inputConstraints['name'])}
+				rhfData={register('name', registerInputConstraints['name'])}
 			/>
 			<Input
 				name={'Email'}
 				error={errors.email}
-				rhfData={register('email', inputConstraints['email'])}
+				rhfData={register('email', registerInputConstraints['email'])}
 			/>
 			<Input
 				name={'Password'}
 				type="password"
 				error={errors.password}
-				rhfData={register('password', inputConstraints['password'])}
+				rhfData={register('password', registerInputConstraints['password'])}
 			/>
 
-			<SubmitButton name={'Crear'} isLoading={isLoading} />
-			<Link to="/login" className="text-end mt-2 pe-auto text-decoration-none">
-				¿Ya estas registrado? Ir al login.
-			</Link>
+			<SubmitButton name={'Login'} isLoading={isLoading} />
 		</form>
 	);
 }

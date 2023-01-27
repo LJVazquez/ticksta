@@ -6,19 +6,7 @@ import { useParams } from 'react-router-dom';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
-
-const newMessageConstraint = {
-	required: 'Por favor escriba una respuesta',
-	minLength: {
-		value: 10,
-		message:
-			'Por favor escriba una descripcion detallada, minimo 10 caracteres',
-	},
-	maxLength: {
-		value: 100,
-		message: 'Maximo 100 caracteres',
-	},
-};
+import { newMessageConstraint } from '../utils/constraints';
 
 export default function NewMessageForm({ setTicketMessages }) {
 	const [isNewMessageLoading, setIsNewMessageLoading] = useState(false);

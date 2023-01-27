@@ -11,16 +11,13 @@ datasource db {
 }
 
 model User {
-  id                Int             @id @default(autoincrement())
-  name              String
-  email             String          @unique
-  password          String
-  role              Role            @default(USER)
-  jwtRefresh        String?         @db.LongText
-  jwtRefreshDate    DateTime?
-  resetPasswordCode String?
-  tickets           Ticket[]
-  ticketMessages    TicketMessage[]
+  id             Int             @id @default(autoincrement())
+  name           String
+  email          String          @unique
+  password       String
+  role           Role            @default(USER)
+  tickets        Ticket[]
+  ticketMessages TicketMessage[]
 }
 
 model Ticket {

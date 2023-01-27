@@ -1,6 +1,6 @@
 export default function Footer() {
 	return (
-		<footer className="navbar bg-dark text-white" style={{ height: 100 }}>
+		<footer className="navbar bg-dark text-white mt-4" style={{ height: 100 }}>
 			<div className="container">
 				<span className="text-white">© 2023 Ticksta Project</span>
 				<ul className="nav col-md-4 justify-content-end list-unstyled">

@@ -5,12 +5,27 @@ import {
 	ticketStatusBackgroundColors,
 } from '../utils/formats';
 
+import { motion, AnimatePresence } from 'framer-motion';
+
+const trAnimationSettings = {
+	initial: { opacity: 0 },
+	animate: { opacity: 1 },
+	exit: { opacity: 0 },
+	transition: { duration: 0.2 },
+};
+
+const linkAnimationSettings = {
+	whileHover: {
+		scale: 1.01,
+	},
+};
+
 const getSkeleton = () => {
 	let tableRows = [];
 
 	for (let i = 0; i < 5; i++) {
 		tableRows.push(
-			<tr key={i} className="placeholder-glow">
+			<tr key={i} {...trAnimationSettings}>
 				<td colSpan={4}>
 					<span className="placeholder col-12"></span>
 				</td>
@@ -28,14 +43,16 @@ const getTicketRows = (tickets) => {
 			const badgeColor = `bg-${ticketStatusBackgroundColors[ticket['status']]}`;
 
 			return (
-				<tr key={ticket.id}>
+				<motion.tr initial="false" key={ticket.id} {...trAnimationSettings}>
 					<th scope="row">{ticket.id}</th>
 					<td>
 						<Link
 							to={`/ticket-detail/${ticket.id}`}
 							className="text-decoration-none"
 						>
-							{ticket.subject}
+							<motion.div {...linkAnimationSettings}>
+								{ticket.subject}
+							</motion.div>
 						</Link>
 					</td>
 					<td>
@@ -44,7 +61,7 @@ const getTicketRows = (tickets) => {
 						</span>
 					</td>
 					<td>{createdAt}</td>
-				</tr>
+				</motion.tr>
 			);
 		})
 	) : (
@@ -68,7 +85,11 @@ export default function TicketsTable({ tickets }) {
 						<th scope="col">Fecha</th>
 					</tr>
 				</thead>
-				<tbody>{tickets ? getTicketRows(tickets) : getSkeleton()}</tbody>
+				<tbody>
+					<AnimatePresence>
+						{tickets ? getTicketRows(tickets) : getSkeleton()}
+					</AnimatePresence>
+				</tbody>
 			</table>
 		</div>
 	);

@@ -31,7 +31,7 @@ export default function usePagination(resources, resourcesPerPage) {
 	};
 
 	const PaginationButtons = () => {
-		return (
+		return pages.length > 1 ? (
 			<Pagination
 				pages={pages}
 				currentPage={currentPage}
@@ -39,6 +39,8 @@ export default function usePagination(resources, resourcesPerPage) {
 				goToNextPage={goToNextPage}
 				goToPrevPage={goToPrevPage}
 			/>
+		) : (
+			''
 		);
 	};
 
