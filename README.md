@@ -11,20 +11,19 @@
   </p>
 </div>
 
-## Tabla de contenidos
+## 📔 Tabla de contenidos
 
 - [Acerca del proyecto](##acerca-del-proyecto)
 - [Tecnologias](#tecnologias)
-- [Ejecucion](#ejecucion)
+- [Ejecutar localmente](#ejecutar-localmente)
 - - [Prerequisitos](#prerequisitos)
 - - [Instalacion](#instalacion)
 - - [Configuracion del entorno](#configuracion-del-entorno)
+- - [Ejecucion](#ejecucion)
 - [Uso](#uso)
 - [Sobre mi](#sobre-mi)
 
-## Sobre mi
-
-## Acerca del proyecto
+## 🌟 Acerca del proyecto
 
 [![Product Name Screen Shot][product-screenshot]](#)
 
@@ -32,7 +31,7 @@ Ticksta es una single-page app (SPA) desarrollada como proyecto de juguete para 
 
 Consta de un CRUD para la gestión de tickets que cuenta con autorización y autenticación, en el que los usuarios pueden crear dichos tickets y comunicarse con administradores mediante mensajes en los mismos.
 
-### Tecnologias
+### 👾 Tecnologias
 
 Las principales librerias utilizadas son:
 
@@ -51,16 +50,16 @@ Tambien se utilizan otras librerias mas pequeñas de Node y React como:
 - jsonwebtoken
 - axios
 
-## Ejecución
+## 🧰 Ejecutar localmente
 
-### Prerequisitos
+### ‼️ Prerequisitos
 
 Es necesario tener instalado:
 -Node.js
 -NPM
 -Prisma CLI
 
-### Instalacion
+### ⚙️ Instalacion
 
 1. Clonar el repositorio.
    ```sh
@@ -75,7 +74,7 @@ Es necesario tener instalado:
    npm install @prisma/client
    ```
 
-### Configuracion del entorno
+### 🔑 Configuracion del entorno
 
 - Renombrar el archivo .env.template de la carpeta back/ a .env
 - Configurar el archivo .env con los datos de tu base de datos y tu codigo secreto para generar los hash de los passwords.
@@ -101,7 +100,7 @@ En la terminal:
   npx prisma db seed
   ```
 
-### Ejecucion
+### 🏃 Ejecucion
 
 En la terminal:
 
@@ -119,7 +118,7 @@ En una nueva terminal:
   cd npm start
   ```
 
-## Uso
+## 🔧 Uso
 
 Con el seeder se crean 2 cuentas de prueba:
 
@@ -133,7 +132,7 @@ Con el seeder se crean 2 cuentas de prueba:
 - email: user@ticksta.com
 - password: 123123123
 
-## Sobre mi
+## 🎓 Sobre mi
 
 Mi nombre es Leandro, actualmente me encuentro cursando el ultimo año de la carrera de Desarrollo Web en la [Universidad Nacional de la Matanza](https://www.unlam.edu.ar/).
 Poseo experiencia tanto en desarrollo como en testing.
