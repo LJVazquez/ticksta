@@ -11,6 +11,19 @@
   </p>
 </div>
 
+## Tabla de contenidos
+
+- [Acerca del proyecto](##acerca-del-proyecto)
+- [Tecnologias](#tecnologias)
+- [Ejecucion](#ejecucion)
+- - [Prerequisitos](#prerequisitos)
+- - [Instalacion](#instalacion)
+- - [Configuracion del entorno](#configuracion-del-entorno)
+- [Uso](#uso)
+- [Sobre mi](#sobre-mi)
+
+## Sobre mi
+
 ## Acerca del proyecto
 
 [![Product Name Screen Shot][product-screenshot]](#)
@@ -62,9 +75,24 @@ Es necesario tener instalado:
    npm install @prisma/client
    ```
 
-### Ejecucion
+### Configuracion del entorno
 
-- Crear la base de datos
+- Renombrar el archivo .env.template de la carpeta back/ a .env
+- Configurar el archivo .env con los datos de tu base de datos y tu codigo secreto para generar los hash de los passwords.
+
+  ```sh
+  DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+  TOKEN_SECRET=tu_clave_secreta
+
+  ```
+
+En la terminal:
+
+- Ingresar a la carpeta de back.
+  ```sh
+  cd back
+  ```
+- Crear la estructura de la base de datos.
   ```sh
   npx prisma db push
   ```
@@ -72,14 +100,22 @@ Es necesario tener instalado:
   ```sh
   npx prisma db seed
   ```
-- Ejecutar React.
-  ```sh
-  cd front
-  cd npm start
-  ```
+
+### Ejecucion
+
+En la terminal:
+
 - Ejecutar servidor.
   ```sh
   cd back
+  cd npm start
+  ```
+
+En una nueva terminal:
+
+- Ejecutar React.
+  ```sh
+  cd front
   cd npm start
   ```
 
