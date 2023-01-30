@@ -1,1 +1,0 @@
-error handle cuando buscas tickets/id que no existe porque busca su userId 

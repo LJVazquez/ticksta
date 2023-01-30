@@ -50,7 +50,7 @@ Tambien se utilizan otras librerias mas pequeñas de Node y React como:
 - jsonwebtoken
 - axios
 
-## 🧰 Ejecutar localmente
+<!-- ## 🧰 Ejecutar localmente
 
 ### ‼️ Prerequisitos
 
@@ -130,7 +130,7 @@ Con el seeder se crean 2 cuentas de prueba:
 #### USER:
 
 - email: user@ticksta.com
-- password: 123123123
+- password: 123123123 -->
 
 ## 🎓 Sobre mi
 
