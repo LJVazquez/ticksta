@@ -2,10 +2,8 @@ version: '3.9'
 
 services:
   app:
-    container_name: back
-    build:
-      context: ./back
-      dockerfile: Dockerfile
+    container_name: app
+    image: ljvazquez/ticksta:latest
     ports:
       - '3001:3001'
     depends_on:
