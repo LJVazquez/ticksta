@@ -13,7 +13,7 @@
 
 ## 📔 Tabla de contenidos
 
-- [Acerca del proyecto](#acerca-del-proyecto)
+- [Acerca del proyecto](#🌟-acerca-del-proyecto)
 - [Tecnologias](#👾-tecnologias)
 - [Ejecutar localmente](#🧰-ejecutar-localmente)
 - - [Prerequisitos](#‼️-prerequisitos)
