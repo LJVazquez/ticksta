@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  back:
+  app:
     container_name: back
     build:
       context: ./back
@@ -23,13 +23,3 @@ services:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       timeout: 20s
       retries: 10
-
-  front:
-    container_name: front
-    build:
-      context: ./front
-      dockerfile: Dockerfile
-    ports:
-      - '3000:3000'
-    depends_on:
-      - back
