@@ -82,7 +82,7 @@ const getUserById = async (req, res) => {
 		let user = await prisma.user.findUnique({ where: { id: userId } });
 
 		if (!user) {
-			return res.status(400).json({ error: 'Usuario no encontrado' });
+			return res.status(404).json({ error: 'Usuario no encontrado' });
 		}
 
 		user = removeUserPrivateData(user);

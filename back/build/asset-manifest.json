@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7a7f31f3.css",
+    "main.js": "/static/js/main.43139c80.js",
+    "static/media/success.jpg": "/static/media/success.ad9e56d2a37ca5e063a2.jpg",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
+    "static/media/login-illus.png": "/static/media/login-illus.7226143e5dd879297d76.png",
+    "static/media/ticket-broken.png": "/static/media/ticket-broken.710019685ad6772d100f.png",
+    "static/media/ticket-hero.png": "/static/media/ticket-hero.1ed08343dbf21e66378a.png",
+    "static/media/react.svg": "/static/media/react.311aed114e16d40fef126a5efd7cfa17.svg",
+    "static/media/node-js.svg": "/static/media/node-js.b34cf371b265ada3c64641b2f62b035b.svg",
+    "static/media/bootstrap.svg": "/static/media/bootstrap.11595cb07154a9ed60a8dd7f2048b459.svg",
+    "static/media/express.svg": "/static/media/express.2ef808afd186450ba666fe9141c3a8e4.svg",
+    "index.html": "/index.html",
+    "main.7a7f31f3.css.map": "/static/css/main.7a7f31f3.css.map",
+    "main.43139c80.js.map": "/static/js/main.43139c80.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7a7f31f3.css",
+    "static/js/main.43139c80.js"
+  ]
+}

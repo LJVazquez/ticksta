@@ -1,8 +1,10 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 export default function useHandleAxiosError() {
 	const { setAuthToken, setAuthUser } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const removeAuthData = () => {
 		setAuthToken(null);
@@ -25,6 +27,10 @@ export default function useHandleAxiosError() {
 		) {
 			removeAuthData();
 			console.error('error:', error.response.data.error);
+		}
+
+		if (error.response?.status === 404) {
+			navigate('/404');
 		}
 	};
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const ticketMessagesUri = `http://localhost:3001/ticketmessages/`;
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+const ticketMessagesUri = `${serverUrl}/ticketmessages/`;
 
 export async function createTicketMessage(ticketId, message, token) {
 	const config = {

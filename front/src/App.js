@@ -3,11 +3,12 @@ import Dashboard from './pages/Dashboard';
 import NewTicket from './pages/NewTicket';
 import Tickets from './pages/Tickets';
 import TicketDetail from './pages/TicketDetail';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import RegisterUser from './pages/RegisterUser';
+import FourOFour from './pages/FourOFour';
 
 function App() {
 	return (
@@ -48,6 +49,8 @@ function App() {
 						</ProtectedRoute>
 					}
 				/>
+				<Route path="404" element={<FourOFour />} />
+				<Route path="*" element={<Navigate to="/404" replace={true} />} />
 			</Routes>
 		</AuthProvider>
 	);

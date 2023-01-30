@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const usersUri = `http://localhost:3001/users`;
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+const usersUri = `${serverUrl}/users`;
 
 export async function createUser(name, email, password) {
 	const data = { name, email, password };

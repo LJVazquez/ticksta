@@ -58,7 +58,7 @@ const getTicketById = async (req, res) => {
 		});
 
 		if (!ticket) {
-			return res.status(400).json({ error: 'Ticket no encontrado' });
+			return res.status(404).json({ error: 'Ticket no encontrado' });
 		}
 
 		if (

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const ticketsUri = `http://localhost:3001/tickets`;
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+const ticketsUri = `${serverUrl}/tickets`;
 
 export async function fetchAllTickets(token) {
 	const config = {
