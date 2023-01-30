@@ -48,8 +48,8 @@ const validateLoginData = (data) => {
 const validateTicketCreationData = (data) => {
 	const ticketStatuses = ['OPEN', 'INPROG', 'PENDING', 'RESOLVED', 'CLOSED'];
 	const ticketSchema = Joi.object({
-		subject: Joi.string().min(6).max(30).required(),
-		description: Joi.string().min(10).max(100).required(),
+		subject: Joi.string().min(6).max(100).required(),
+		description: Joi.string().min(10).max(300).required(),
 		status: Joi.string().valid(...ticketStatuses),
 	});
 
@@ -59,8 +59,8 @@ const validateTicketCreationData = (data) => {
 const validateTicketUpdateData = (data) => {
 	const ticketStatuses = ['OPEN', 'INPROG', 'PENDING', 'RESOLVED', 'CLOSED'];
 	const ticketSchema = Joi.object({
-		subject: Joi.string().min(6).max(30),
-		description: Joi.string().min(10).max(50),
+		subject: Joi.string().min(10).max(100),
+		description: Joi.string().min(10).max(300),
 		status: Joi.string().valid(...ticketStatuses),
 	});
 
@@ -69,7 +69,7 @@ const validateTicketUpdateData = (data) => {
 
 const validateTicketMessageCreationData = (data) => {
 	const ticketMessageSchema = Joi.object({
-		message: Joi.string().min(10).max(50).required(),
+		message: Joi.string().min(10).max(300).required(),
 		ticketId: Joi.number().integer().required(),
 	});
 

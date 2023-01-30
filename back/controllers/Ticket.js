@@ -57,6 +57,10 @@ const getTicketById = async (req, res) => {
 			},
 		});
 
+		if (!ticket) {
+			return res.status(400).json({ error: 'Ticket no encontrado' });
+		}
+
 		if (
 			authUserData.userRole !== 'ADMIN' &&
 			ticket.userId !== authUserData.userId

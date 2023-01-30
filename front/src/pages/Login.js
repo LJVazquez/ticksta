@@ -50,6 +50,22 @@ export default function Login() {
 		}
 	};
 
+	const loginTestUser = async (role) => {
+		try {
+			const testEmail = process.env[`REACT_APP_TEST_${role}_EMAIL`];
+			const testPass = process.env.REACT_APP_TEST_PASS;
+
+			const authToken = await login(testEmail, testPass);
+
+			setAuthToken(authToken.jwt);
+			localStorage.setItem('authToken', JSON.stringify(authToken.jwt));
+		} catch (e) {
+			handleError(e);
+			setAuthToken(null);
+			setLoginError(e.response.data.error);
+		}
+	};
+
 	return (
 		<Layout>
 			<div className="row" style={{ height: '50vh' }}>
@@ -84,7 +100,27 @@ export default function Login() {
 							rhfData={register('password', loginInputConstraints['password'])}
 						/>
 
-						<SubmitButton name={'Login'} isLoading={isLoginLoading} />
+						<div className="row">
+							<div className="col-12 d-grid mb-3">
+								<SubmitButton name={'Login'} isLoading={isLoginLoading} />
+							</div>
+							<div className="col-12 col-lg-6 d-grid mb-2">
+								<span
+									className="btn btn-sm btn-warning"
+									onClick={() => loginTestUser('USER')}
+								>
+									Usuario de prueba
+								</span>
+							</div>
+							<div className="col-12 col-lg-6 d-grid mb-2">
+								<span
+									className="btn btn-sm btn-success"
+									onClick={() => loginTestUser('ADMIN')}
+								>
+									Admin de prueba
+								</span>
+							</div>
+						</div>
 					</form>
 					<span className="text-end">
 						¿No tenes usuario?{' '}

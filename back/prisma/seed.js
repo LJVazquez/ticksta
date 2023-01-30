@@ -61,6 +61,7 @@ async function main() {
 			email: 'admin@ticksta.com',
 			password: '$2b$10$voK2bcjGJmxot/NACnuLO.vTIy0zjXcdR5W..GJ.6H435/In9hrUG',
 			name: 'Test Admin',
+			role: 'ADMIN',
 		},
 	});
 

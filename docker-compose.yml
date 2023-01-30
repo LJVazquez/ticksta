@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  back:
+    container_name: back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: mysql
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1235
+    ports:
+      - '3307:3306'
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 10

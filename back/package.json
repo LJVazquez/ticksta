@@ -4,8 +4,10 @@
 	"description": "",
 	"main": "app.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon app.js"
+		"deploy": "npx prisma db push",
+		"seed": "npx prisma db seed",
+		"start": "nodemon app.js",
+		"prodStart": "npm run deploy && npm run seed && npm start"
 	},
 	"prisma": {
 		"seed": "node prisma/seed.js"

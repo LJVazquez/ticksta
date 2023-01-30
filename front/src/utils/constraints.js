@@ -2,12 +2,12 @@ export const newTicketConstraints = {
 	subject: {
 		required: 'Por favor ingrese un tema',
 		minLength: {
-			value: 6,
+			value: 10,
 			message: 'Por favor describa el tema, minimo 10 caracteres',
 		},
 		maxLength: {
-			value: 30,
-			message: 'Maximo 50 caracteres',
+			value: 100,
+			message: 'Maximo 100 caracteres',
 		},
 	},
 	description: {
@@ -17,10 +17,9 @@ export const newTicketConstraints = {
 			message:
 				'Por favor escriba una descripcion detallada, minimo 10 caracteres',
 		},
-
 		maxLength: {
-			value: 50,
-			message: 'Maximo 50 caracteres',
+			value: 300,
+			message: 'Maximo 300 caracteres',
 		},
 	},
 };
@@ -67,7 +66,7 @@ export const newMessageConstraint = {
 			'Por favor escriba una descripcion detallada, minimo 10 caracteres',
 	},
 	maxLength: {
-		value: 100,
-		message: 'Maximo 100 caracteres',
+		value: 300,
+		message: 'Maximo 300 caracteres',
 	},
 };
