@@ -31,7 +31,7 @@ Consta de un CRUD para la gestión de tickets que cuenta con autorización y aut
 
 ### 👾 Tecnologias
 
-Las principales librerias utilizadas son:
+Las principales tecnologías y librerías utilizadas son:
 
 [![Node][node]][node-url]
 [![React][react.js]][react-url]
