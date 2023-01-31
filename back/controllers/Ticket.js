@@ -8,8 +8,18 @@ const {
 } = require('../utils/schemaValidators.js');
 
 const getTickets = async (req, res) => {
+	const { userId, userRole } = req.authData;
+
 	try {
-		const tickets = await prisma.ticket.findMany({});
+		let tickets;
+
+		if (userRole === 'ADMIN') {
+			tickets = await prisma.ticket.findMany({});
+		} else {
+			tickets = await prisma.ticket.findMany({
+				where: { userId: userId },
+			});
+		}
 
 		res.json(tickets);
 	} catch (e) {
