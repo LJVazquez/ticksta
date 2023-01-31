@@ -61,9 +61,10 @@ Es necesario tener instalado:
 
 ### 🏃 Ejecucion
 
-Descargar el archivo [docker-compose.yml](docker-compose.yml).
+Descargar el archivo [docker-compose.yml](docker-compose.yml) que se encuentra en la
+raiz del repositorio.
 
-Ejecutar la terminal en la misma carpeta donde se encuentra el archivo de docker-compose.yml y correr el siguiente comando:
+Ejecutar la terminal en la misma carpeta donde se encuentra el descargado y correr el siguiente comando:
 
 ```sh
 docker-compose up
