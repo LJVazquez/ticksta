@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import TicketsTable from '../components/TicketsTable';
-import { fetchAllTickets, fetchTicketsByUserId } from '../services/tickets';
+import { fetchAllTickets } from '../services/tickets';
 import { AuthContext } from '../context/AuthContext';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
 import usePagination from '../hooks/usePagination';
@@ -11,7 +11,7 @@ export default function Tickets() {
 	const [tickets, setTickets] = useState();
 	const [searchKeywords, setSearchKeywords] = useState('');
 	const [ticketStatusFilter, setTicketStatusFilter] = useState('ALL');
-	const { authUser, authToken } = useContext(AuthContext);
+	const { authToken } = useContext(AuthContext);
 
 	const filterTickets = () => {
 		const filteredByStatus = tickets?.filter(
@@ -41,10 +41,7 @@ export default function Tickets() {
 	useEffect(() => {
 		const fetchTickets = async () => {
 			try {
-				const tickets =
-					authUser.userRole === 'ADMIN'
-						? await fetchAllTickets(authToken)
-						: await fetchTicketsByUserId(authUser.userId, authToken);
+				const tickets = await fetchAllTickets(authToken);
 				setTickets(tickets);
 			} catch (e) {
 				handleError(e);

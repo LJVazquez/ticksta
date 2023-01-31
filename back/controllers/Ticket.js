@@ -54,6 +54,10 @@ const getTicketById = async (req, res) => {
 	const ticketId = parseInt(req.params.id);
 	authUserData = req.authData;
 
+	if (isNaN(ticketId)) {
+		return res.status(400).json({ error: 'Error en el id' });
+	}
+
 	try {
 		const ticket = await prisma.ticket.findUnique({
 			where: { id: ticketId },
@@ -204,6 +208,28 @@ const getLatestMessages = async (req, res) => {
 	}
 };
 
+const getTicketStats = async (req, res) => {
+	try {
+		const tickets = await prisma.ticket.findMany({ select: { status: true } });
+
+		const ticketStatuses = tickets.map((ticket) => ticket.status);
+		const statusCount = {};
+
+		ticketStatuses.forEach((status) => {
+			if (statusCount.hasOwnProperty(status)) {
+				statusCount[status] = statusCount[status] + 1;
+			} else {
+				statusCount[status] = 1;
+			}
+		});
+
+		res.json(statusCount);
+	} catch (e) {
+		console.error(e);
+		res.status(500).json({ error: e.message });
+	}
+};
+
 module.exports = {
 	getTickets,
 	getTicketById,
@@ -213,4 +239,5 @@ module.exports = {
 	createTicketMessage,
 	getLatestTickets,
 	getLatestMessages,
+	getTicketStats,
 };

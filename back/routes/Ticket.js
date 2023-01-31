@@ -7,10 +7,12 @@ const {
 	updateTicket,
 	getTicketsByUserId,
 	getLatestTickets,
+	getTicketStats,
 } = require('../controllers/Ticket');
 const { authorizeRole } = require('../middleware/authMiddleware');
 
 router.get('/', getTickets);
+router.get('/stats', authorizeRole('ADMIN'), getTicketStats);
 router.get('/:id', getTicketById);
 router.get('/user/:id', getTicketsByUserId);
 router.get('/latest/:amount', authorizeRole('ADMIN'), getLatestTickets);

@@ -21,6 +21,15 @@ export async function fetchTicketsByUserId(userId, token) {
 	return res.data;
 }
 
+export async function fetchTicketStats(token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const res = await axios.get(`${ticketsUri}/stats`, config);
+	return res.data;
+}
+
 export async function fetchLatestTickets(ticketAmount, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },
