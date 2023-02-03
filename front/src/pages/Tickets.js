@@ -53,14 +53,16 @@ export default function Tickets() {
 
 	return (
 		<Layout>
-			<TicketsPageHeader
-				searchValue={searchKeywords}
-				setSearchValue={setSearchKeywords}
-				selectValue={ticketStatusFilter}
-				setSelectValue={setTicketStatusFilter}
-			/>
-			<TicketsTable tickets={paginatedTickets}></TicketsTable>
-			<PaginationButtons />
+			<div className="bg-white p-5 rounded-4">
+				<TicketsPageHeader
+					searchValue={searchKeywords}
+					setSearchValue={setSearchKeywords}
+					selectValue={ticketStatusFilter}
+					setSelectValue={setTicketStatusFilter}
+				/>
+				<TicketsTable tickets={paginatedTickets}></TicketsTable>
+				<PaginationButtons />
+			</div>
 		</Layout>
 	);
 }

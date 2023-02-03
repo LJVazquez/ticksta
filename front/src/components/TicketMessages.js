@@ -21,16 +21,19 @@ const getSkeleton = () => {
 export default function TicketMessages({ messages }) {
 	if (messages) {
 		return (
-			<div className="mb-3">
+			<div className="row mb-3 mx-1">
 				{messages.length > 0 ? (
 					messages.map((message) => {
 						const createdAt = formatDate(message.createdAt, 'DD/MM/YYYY HH:mm');
 						return (
-							<div key={message.id}>
-								<div className="mb-2 fw-bold">
+							<div
+								key={message.id}
+								className="bg-white p-3 mb-3 rounded-4 shadow-sm"
+							>
+								<div className="fw-bold">
 									{message.user.name} ({createdAt}):
 								</div>
-								<p className="card p-3 bg-white">{message.message}</p>
+								<span>{message.message}</span>
 							</div>
 						);
 					})

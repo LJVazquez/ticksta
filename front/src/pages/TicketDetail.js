@@ -37,8 +37,6 @@ export default function TicketDetail() {
 		5
 	);
 
-	const getSkeleton = () => {};
-
 	return (
 		<Layout>
 			<TicketDetailData ticket={ticket} setTicket={setTicket} />

@@ -10,6 +10,7 @@ export default function TicketsPageHeader(props) {
 
 	return (
 		<div className="row mb-5 justify-content-between">
+			<h1 className="fw-bold">Tickets</h1>
 			<motion.div layoutId="newTicketForm" className="col-auto">
 				{authUser.userRole === 'USER' && (
 					<div>
@@ -19,7 +20,7 @@ export default function TicketsPageHeader(props) {
 					</div>
 				)}
 			</motion.div>
-			<div className="col-12 col-md-auto row">
+			<div className="col-12 col-md-auto row mx-0">
 				<div className="col-12 col-md-auto">
 					<div className="input-group input-group-sm mb-3 mb-md-0">
 						<span className="input-group-text bg-dark-subtle border-0 text-white">
