@@ -6,6 +6,8 @@ import {
 	ticketStatusEquivalent,
 } from '../utils/formats';
 import ChangeTicketStatusForm from './ChangeTicketStatusForm';
+import InputReadOnly from './InputReadOnly';
+import TextAreaReadOnly from './TextAreaReadOnly';
 
 export default function TicketDetailData({ ticket, setTicket }) {
 	const { authUser } = useContext(AuthContext);
@@ -19,39 +21,28 @@ export default function TicketDetailData({ ticket, setTicket }) {
 			<>
 				<div className="row bg-white p-3 rounded-4 mb-3 shadow-sm mx-1">
 					<div className="col-12 d-flex align-items-center mb-3">
-						<label className="fw-bold d-flex me-2">
+						<InputReadOnly value={ticket.subject}>
 							<i className="bi bi-ticket-fill me-2"></i>#{ticket.id}
-						</label>
-						<input value={ticket.subject} className="form-control" readOnly />
+						</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<label className="fw-bold d-flex me-2">Creado</label>
-						<input value="Marcos Laporte" className="form-control" readOnly />
+						<InputReadOnly value={'Marcos Laporte'}>Creado</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<label className="fw-bold d-flex me-2">Asignado</label>
-						<input value="Juan Laporte" className="form-control" readOnly />
+						<InputReadOnly value={'Marcos Laporte'}>Asignado</InputReadOnly>
 					</div>
 					<div className="col-6 d-flex align-items-center">
-						<label className="fw-bold d-flex me-2">Prioridad</label>
-						<input value="Baja" className="form-control" readOnly />
+						<InputReadOnly value={'Alta'}>Priridad</InputReadOnly>
 					</div>
 					<div className="col-6 d-flex align-items-center">
-						<label className="fw-bold d-flex me-2">Tipo</label>
-						<input value="Bug" className="form-control" readOnly />
+						<InputReadOnly value={'BUG'}>Tipo</InputReadOnly>
 					</div>
 				</div>
 				<div className="row mb-3 bg-white p-3 rounded-4 shadow-sm mx-1">
 					<div className="col-12">
-						<label className="fw-bold d-flex mb-2">Descripcion</label>
-						<textarea
-							style={{ resize: 'none' }}
-							className="form-control bg-light rounded-3 border-0"
-							readOnly
-							value={ticket.description}
-							rows="4"
-							cols="50"
-						/>
+						<TextAreaReadOnly value={ticket.description}>
+							Descripcion
+						</TextAreaReadOnly>
 					</div>
 				</div>
 			</>

@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function TextArea({ name, rhfData, error, maxLength = null }) {
 	return (
-		<div className="mb-3">
-			<label htmlFor={name?.toLocaleLowerCase()} className="form-label">
+		<div className="mb-3 mx-1">
+			<label htmlFor={name?.toLocaleLowerCase()} className="form-label fw-bold">
 				{name}
 			</label>
 			<textarea
@@ -11,7 +11,7 @@ export default function TextArea({ name, rhfData, error, maxLength = null }) {
 				{...rhfData}
 				style={{ height: 100, resize: 'none' }}
 				maxLength={maxLength}
-				className={`form-control p-3 rounded-4 mb-3 shadow-sm mx-1 ${
+				className={`form-control p-3 rounded-4 mb-3 shadow-sm ${
 					error && 'is-invalid'
 				}`}
 			/>

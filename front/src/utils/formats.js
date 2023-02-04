@@ -8,6 +8,13 @@ export const ticketStatusEquivalent = {
 	CLOSED: 'Cerrado',
 };
 
+export const ticketTypesEquivalent = {
+	BUG: 'Bug',
+	FEATURE_REQ: 'Peticion',
+	OTHER: 'Otro',
+	ISSUE: 'Problema',
+};
+
 export const ticketStatusBackgroundColors = {
 	OPEN: 'info',
 	INPROG: 'warning',

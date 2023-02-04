@@ -38,7 +38,9 @@ export default function TicketMessages({ messages }) {
 						);
 					})
 				) : (
-					<div className="mb-2 fw-bold">Sin mensajes</div>
+					<div className="mb-2 my-3 fw-bold">
+						<i className="bi bi-journal-x text-danger me-2"></i> Sin mensajes
+					</div>
 				)}
 			</div>
 		);

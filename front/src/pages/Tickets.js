@@ -53,7 +53,7 @@ export default function Tickets() {
 
 	return (
 		<Layout>
-			<div className="bg-white p-5 rounded-4">
+			<div className="bg-white p-5 rounded-4 shadow-sm">
 				<TicketsPageHeader
 					searchValue={searchKeywords}
 					setSearchValue={setSearchKeywords}
