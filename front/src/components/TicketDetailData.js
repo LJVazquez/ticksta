@@ -20,13 +20,19 @@ export default function TicketDetailData({ ticket, setTicket }) {
 		return (
 			<>
 				<div className="row bg-white p-3 rounded-4 mb-3 shadow-sm mx-1">
+					<div className="col-12 d-flex align-items-center justify-content-between mb-2">
+						<h3>
+							<i className="bi bi-ticket-fill me-2 text-info"></i>#{ticket.id}
+						</h3>
+						<span className={`badge ${badgeColor}`}>
+							{ticketStatusEquivalent[ticket.status]}
+						</span>
+					</div>
 					<div className="col-12 d-flex align-items-center mb-3">
-						<InputReadOnly value={ticket.subject}>
-							<i className="bi bi-ticket-fill me-2"></i>#{ticket.id}
-						</InputReadOnly>
+						<InputReadOnly value={ticket.subject}>Tema</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<InputReadOnly value={'Marcos Laporte'}>Creado</InputReadOnly>
+						<InputReadOnly value={ticket.user.name}>Creado</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
 						<InputReadOnly value={'Marcos Laporte'}>Asignado</InputReadOnly>
@@ -37,7 +43,16 @@ export default function TicketDetailData({ ticket, setTicket }) {
 					<div className="col-6 d-flex align-items-center">
 						<InputReadOnly value={'BUG'}>Tipo</InputReadOnly>
 					</div>
+					{authUser.userRole !== 'USER' && (
+						<div className="row mt-3">
+							<div className="col-auto">
+								<p className="fw-bold mb-2">Actualizar estado</p>
+								<ChangeTicketStatusForm ticket={ticket} setTicket={setTicket} />
+							</div>
+						</div>
+					)}
 				</div>
+
 				<div className="row mb-3 bg-white p-3 rounded-4 shadow-sm mx-1">
 					<div className="col-12">
 						<TextAreaReadOnly value={ticket.description}>
@@ -74,14 +89,14 @@ export default function TicketDetailData({ ticket, setTicket }) {
 		// 				</div>
 		// 			</div>
 		// 		</div>
-		// 		{authUser.userRole === 'ADMIN' && (
-		// 			<div className="row mt-3">
-		// 				<div className="col-auto">
-		// 					<p className="fw-bold mb-0">Actualizar estado</p>
-		// 					<ChangeTicketStatusForm ticket={ticket} setTicket={setTicket} />
-		// 				</div>
-		// 			</div>
-		// 		)}
+		// {authUser.userRole === 'ADMIN' && (
+		// 	<div className="row mt-3">
+		// 		<div className="col-auto">
+		// 			<p className="fw-bold mb-0">Actualizar estado</p>
+		// 			<ChangeTicketStatusForm ticket={ticket} setTicket={setTicket} />
+		// 		</div>
+		// 	</div>
+		// )}
 		// 	</div>
 		// );
 	}

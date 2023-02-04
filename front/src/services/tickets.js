@@ -63,6 +63,7 @@ export async function createTicket(subject, description, token) {
 	return res.data;
 }
 
+//TODO cambiar a endpoint que solo cambia estados
 export async function updateTicketStatus(ticketId, status, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },

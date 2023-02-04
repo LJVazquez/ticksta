@@ -19,6 +19,7 @@ export default function ChangeTicketStatusForm({ ticket, setTicket }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
 			if (ticketStatusSelect === '') return;
 
@@ -42,7 +43,7 @@ export default function ChangeTicketStatusForm({ ticket, setTicket }) {
 		<>
 			<form className="input-group" onSubmit={(e) => handleSubmit(e)}>
 				<select
-					className="form-select-sm border border-dark-subtle"
+					className="form-select-sm border-0 bg-light rounded-3 rounded-end"
 					value={ticketStatusSelect}
 					onChange={(e) => setTicketStatusSelect(e.target.value)}
 				>
@@ -61,7 +62,7 @@ export default function ChangeTicketStatusForm({ ticket, setTicket }) {
 						<option value="CLOSED">Cerrado</option>
 					)}
 				</select>
-				<button className="input-group-text-sm bg-dark-subtle rounded-end-2 text-white">
+				<button className="input-group-text-sm bg-dark-subtle rounded-end-3 text-white">
 					Actualizar
 				</button>
 			</form>

@@ -62,6 +62,7 @@ const getTicketById = async (req, res) => {
 		const ticket = await prisma.ticket.findUnique({
 			where: { id: ticketId },
 			include: {
+				user: { select: { name: true } },
 				ticketMessages: {
 					include: {
 						user: { select: { name: true } },
@@ -143,6 +144,9 @@ const updateTicket = async (req, res) => {
 		const updatedTicket = await prisma.ticket.update({
 			where: { id: ticketId },
 			data: data,
+			include: {
+				user: { select: { name: true } },
+			},
 		});
 
 		res.json(updatedTicket);
