@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import logo from '../img/logo.png';
 
 export default function Header() {
 	const { authUser, setAuthUser, setAuthToken } = useContext(AuthContext);
+	const location = useLocation();
+	const locationPath = location.pathname;
 
 	const logOut = () => {
 		setAuthUser(null);
@@ -38,15 +40,37 @@ export default function Header() {
 						{authUser ? (
 							<ul className="navbar-nav">
 								{authUser?.userRole === 'ADMIN' && (
-									<li className="nav-item">
-										<Link to="/dashboard" className="nav-link active">
-											Dashboard
-										</Link>
-									</li>
+									<>
+										<li className="nav-item">
+											<Link
+												to="/dashboard"
+												className={`nav-link ${
+													locationPath.includes('dashboard') && 'active'
+												}`}
+											>
+												Dashboard
+											</Link>
+										</li>
+										<li className="nav-item">
+											<Link
+												to="/users"
+												className={`nav-link ${
+													locationPath.includes('users') && 'active'
+												}`}
+											>
+												Users
+											</Link>
+										</li>
+									</>
 								)}
 
 								<li className="nav-item">
-									<Link to="/tickets" className="nav-link active">
+									<Link
+										to="/tickets"
+										className={`nav-link ${
+											locationPath.includes('tickets') && 'active'
+										}`}
+									>
 										Tickets
 									</Link>
 								</li>

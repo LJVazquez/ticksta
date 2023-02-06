@@ -9,3 +9,12 @@ export async function createUser(name, email, password) {
 	const res = await axios.post(usersUri, data);
 	return res.data;
 }
+
+export async function fetchAllUsers(token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const res = await axios.get(usersUri, config);
+	return res.data;
+}

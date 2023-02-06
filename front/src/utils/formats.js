@@ -15,6 +15,13 @@ export const ticketTypesEquivalent = {
 	ISSUE: 'Problema',
 };
 
+export const UserRoleEquivalent = {
+	USER: 'Usuario',
+	ADMIN: 'Admin',
+	MANAGER: 'Manager',
+	DEV: 'Desarrollador',
+};
+
 export const ticketStatusBackgroundColors = {
 	OPEN: 'info',
 	INPROG: 'warning',

@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import RegisterUser from './pages/RegisterUser';
 import FourOFour from './pages/FourOFour';
+import Users from './pages/Users';
 
 function App() {
 	return (
@@ -46,6 +47,14 @@ function App() {
 					element={
 						<ProtectedRoute authRoles={['USER']}>
 							<NewTicket />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="users"
+					element={
+						<ProtectedRoute authRoles={['ADMIN']}>
+							<Users />
 						</ProtectedRoute>
 					}
 				/>
