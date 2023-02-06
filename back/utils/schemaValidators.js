@@ -29,7 +29,6 @@ const validateUserUpdateData = (data) => {
 	const userSchema = Joi.object({
 		name: Joi.string().min(6).max(30),
 		email: Joi.string().email(),
-		password: Joi.string().min(6).max(30),
 		role: Joi.string().valid('USER', 'ADMIN'),
 	});
 

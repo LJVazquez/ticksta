@@ -30,7 +30,7 @@ export default function Users() {
 
 	const filteredUsers = filterUsers();
 
-	const [paginatedUsers, PaginationButtons] = usePagination(filteredUsers, 2);
+	const [paginatedUsers, PaginationButtons] = usePagination(filteredUsers, 10);
 
 	const handleError = useHandleAxiosError();
 
@@ -56,7 +56,7 @@ export default function Users() {
 					selectValue={ticketStatusFilter}
 					setSelectValue={setUserStatusFilter}
 				/>
-				<UsersTable users={paginatedUsers}></UsersTable>
+				<UsersTable users={paginatedUsers} setUsers={setUsers}></UsersTable>
 				<PaginationButtons />
 			</div>
 		</Layout>

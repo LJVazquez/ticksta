@@ -1,5 +1,6 @@
 import { UserRoleEquivalent } from '../utils/formats';
 import { motion, AnimatePresence } from 'framer-motion';
+import UserRoleTd from './UserRoleTd';
 
 const trAnimationSettings = {
 	initial: { opacity: 0 },
@@ -30,7 +31,7 @@ const getSkeleton = () => {
 	return tableRows;
 };
 
-const getUsersRows = (users) => {
+const getUsersRows = (users, setUsers) => {
 	return users?.length > 0 ? (
 		users.map((user) => {
 			return (
@@ -40,7 +41,7 @@ const getUsersRows = (users) => {
 						<motion.div {...linkAnimationSettings}>{user.name}</motion.div>
 					</td>
 					<td>{user.email}</td>
-					<td>{UserRoleEquivalent[user.role]}</td>
+					<UserRoleTd user={user} setUsers={setUsers} />
 				</motion.tr>
 			);
 		})
@@ -53,7 +54,7 @@ const getUsersRows = (users) => {
 	);
 };
 
-export default function UsersTable({ users }) {
+export default function UsersTable({ users, setUsers }) {
 	return (
 		<div className="table-responsive bg-light p-3 mb-3 rounded-4 ">
 			<table className="table table-light table-hover table-sm">
@@ -67,7 +68,7 @@ export default function UsersTable({ users }) {
 				</thead>
 				<tbody>
 					<AnimatePresence>
-						{users ? getUsersRows(users) : getSkeleton()}
+						{users ? getUsersRows(users, setUsers) : getSkeleton()}
 					</AnimatePresence>
 				</tbody>
 			</table>

@@ -18,3 +18,15 @@ export async function fetchAllUsers(token) {
 	const res = await axios.get(usersUri, config);
 	return res.data;
 }
+
+export async function changeUserRole(userId, role, token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const data = { role };
+	const uri = `${usersUri}/${userId}/`;
+
+	const res = await axios.patch(uri, data, config);
+	return res.data;
+}

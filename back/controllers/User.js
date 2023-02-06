@@ -55,12 +55,6 @@ const updateUser = async (req, res) => {
 		return res.status(409).json({ error: validationErrors });
 	}
 
-	const hashedPassword = data.password
-		? await bcrypt.hash(data.password, saltRounds)
-		: null;
-
-	if (hashedPassword) data.password = hashedPassword;
-
 	try {
 		let updatedUser = await prisma.user.update({
 			where: { id: userId },
