@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import TicketsTable from '../components/TicketsTable';
 import UsersTable from '../components/UsersTable';
-import { fetchAllTickets } from '../services/tickets';
 import { fetchAllUsers } from '../services/users';
 import { AuthContext } from '../context/AuthContext';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
@@ -32,7 +30,7 @@ export default function Users() {
 
 	const filteredUsers = filterUsers();
 
-	const [paginatedUsers, PaginationButtons] = usePagination(filteredUsers, 10);
+	const [paginatedUsers, PaginationButtons] = usePagination(filteredUsers, 2);
 
 	const handleError = useHandleAxiosError();
 

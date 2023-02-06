@@ -11,7 +11,7 @@ export default function Pagination({
 		<nav>
 			<ul className="pagination justify-content-center">
 				<li className="page-item" onClick={goToPrevPage}>
-					<button className="page-link">Anterior</button>
+					<button className="page-link rounded-3 rounded-end">Anterior</button>
 				</li>
 
 				{pages &&
@@ -27,7 +27,10 @@ export default function Pagination({
 					))}
 
 				<li className="page-item">
-					<button className="page-link" onClick={goToNextPage}>
+					<button
+						className="page-link rounded-3 rounded-start"
+						onClick={goToNextPage}
+					>
 						Siguiente
 					</button>
 				</li>
