@@ -5,6 +5,18 @@ const {
 	validateTicketMessageCreationData,
 } = require('../utils/schemaValidators.js');
 
+//* helper de createTicketMessage
+const userHasCommentPermission = (user, ticket) => {
+	const userHasAllowedRole =
+		user.userRole === 'ADMIN' || user.userRole === 'MANAGER';
+
+	const userCreatedTicket = ticket.authorId === user.userId;
+
+	const userIsAssignedToTicket = ticket.assignedToId === user.userId;
+
+	return userHasAllowedRole || userCreatedTicket || userIsAssignedToTicket;
+};
+
 const createTicketMessage = async (req, res) => {
 	const data = req.body;
 
@@ -29,10 +41,7 @@ const createTicketMessage = async (req, res) => {
 			return res.status(409).json({ error: 'Ticket closed' });
 		}
 
-		if (
-			authUserData.userRole !== 'ADMIN' &&
-			ticket.userId !== authUserData.userId
-		) {
+		if (!userHasCommentPermission(authUserData, ticket)) {
 			return res.status(401).json({ error: 'Unauthorized' });
 		}
 
