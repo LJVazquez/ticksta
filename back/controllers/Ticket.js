@@ -17,7 +17,7 @@ const getTickets = async (req, res) => {
 			tickets = await prisma.ticket.findMany({});
 		} else {
 			tickets = await prisma.ticket.findMany({
-				where: { userId: userId },
+				where: { authorId: userId },
 			});
 		}
 
@@ -40,7 +40,7 @@ const createTicket = async (req, res) => {
 
 	try {
 		const newTicket = await prisma.ticket.create({
-			data: { ...data, userId: authUserId },
+			data: { ...data, authorId: authUserId },
 		});
 
 		res.json(newTicket);
@@ -62,7 +62,7 @@ const getTicketById = async (req, res) => {
 		const ticket = await prisma.ticket.findUnique({
 			where: { id: ticketId },
 			include: {
-				user: { select: { name: true } },
+				author: { select: { name: true } },
 				ticketMessages: {
 					include: {
 						user: { select: { name: true } },
@@ -78,7 +78,7 @@ const getTicketById = async (req, res) => {
 
 		if (
 			authUserData.userRole !== 'ADMIN' &&
-			ticket.userId !== authUserData.userId
+			ticket.authorId !== authUserData.userId
 		) {
 			return res.status(401).json({ error: 'Unauthorized' });
 		}
@@ -100,7 +100,7 @@ const getTicketsByUserId = async (req, res) => {
 
 	try {
 		const tickets = await prisma.ticket.findMany({
-			where: { userId: userId },
+			where: { authorId: userId },
 		});
 		res.json(tickets);
 	} catch (e) {
@@ -145,7 +145,7 @@ const updateTicket = async (req, res) => {
 			where: { id: ticketId },
 			data: data,
 			include: {
-				user: { select: { name: true } },
+				author: { select: { name: true } },
 			},
 		});
 

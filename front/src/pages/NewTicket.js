@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import NewTicketForm from '../components/NewTicketForm';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createTicket } from '../services/tickets';
@@ -13,6 +12,7 @@ import TextArea from '../components/TextArea';
 import { newTicketConstraints } from '../utils/constraints';
 import InputSelect from '../components/InputSelect';
 import { ticketTypesEquivalent } from '../utils/formats';
+import ErrorAlert from '../components/ErrorAlert';
 
 export default function NewTicket() {
 	const [isNewTicketLoading, setIsNewTicketLoading] = useState(false);
@@ -66,7 +66,7 @@ export default function NewTicket() {
 						<i className="bi bi-file-plus-fill text-success"></i> Crear nuevo
 						ticket
 					</h3>
-					{error && <div className="alert alert-danger">{error}</div>}
+					{error && <ErrorAlert>{error}</ErrorAlert>}
 					<Input
 						name={'Tema'}
 						error={errors.subject}

@@ -32,7 +32,7 @@ export default function TicketDetailData({ ticket, setTicket }) {
 						<InputReadOnly value={ticket.subject}>Tema</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<InputReadOnly value={ticket.user.name}>Creado</InputReadOnly>
+						<InputReadOnly value={ticket.author.name}>Creado</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
 						<InputReadOnly value={'Marcos Laporte'}>Asignado</InputReadOnly>
