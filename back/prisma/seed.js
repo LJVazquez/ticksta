@@ -7,6 +7,46 @@ const getIsoDate = (dateStr) => {
 };
 
 async function main() {
+	const testManager = await prisma.user.upsert({
+		where: { email: 'manager@ticksta.com' },
+		update: {},
+		create: {
+			email: 'manager@ticksta.com',
+			password: '$2b$10$voK2bcjGJmxot/NACnuLO.vTIy0zjXcdR5W..GJ.6H435/In9hrUG',
+			name: 'Test Manager',
+			role: 'MANAGER',
+			createdProjects: {
+				create: [
+					{
+						id: 1,
+						name: 'Reserva catastrofica',
+						description:
+							'Proyecto derivado de la norma 32312 del consorcio de Seguros de la camara de seguridad Argentina',
+						createdAt: getIsoDate('2022-10-20'),
+					},
+					{
+						id: 2,
+						name: 'Migracion servidor Kront3 a AWS',
+						description:
+							'Migracion del servidor principal de la app Kront3 a AWS',
+						createdAt: getIsoDate('2022-10-20'),
+					},
+				],
+			},
+		},
+	});
+
+	const testDev = await prisma.user.upsert({
+		where: { email: 'dev@ticksta.com' },
+		update: {},
+		create: {
+			email: 'dev@ticksta.com',
+			password: '$2b$10$voK2bcjGJmxot/NACnuLO.vTIy0zjXcdR5W..GJ.6H435/In9hrUG',
+			name: 'Test Dev',
+			role: 'DEV',
+		},
+	});
+
 	const testUser = await prisma.user.upsert({
 		where: { email: 'user@ticksta.com' },
 		update: {},
@@ -23,6 +63,8 @@ async function main() {
 							'Al intentar acceder a la aplicacion de pl/sql me sale un mensaje de error que dice "Por favor contacte con el administrador"',
 						status: 'OPEN',
 						createdAt: getIsoDate('2023-01-21'),
+						projectId: 1,
+						assignedToId: testDev.id,
 					},
 					{
 						id: 2,
@@ -31,6 +73,8 @@ async function main() {
 							'Al intentar acceder a mi email o a teams me sale un mensaje de credenciales expiradas, y no puedo comunicarme con nadie para actualizarlas. Dejo mi numero de contacto 15-1232-2321',
 						status: 'INPROG',
 						createdAt: getIsoDate('2023-01-20'),
+						projectId: 1,
+						assignedToId: testDev.id,
 					},
 					{
 						id: 3,
@@ -40,6 +84,7 @@ async function main() {
 							'Necesito permisos de root para la ruta principal de la aplicacion XT322, si no no puedo conectarme a la base de datos',
 						status: 'RESOLVED',
 						createdAt: getIsoDate('2023-01-19'),
+						projectId: 1,
 					},
 					{
 						id: 4,
@@ -48,6 +93,7 @@ async function main() {
 							'Al intentar acceder a ms teams me sale un mensaje que dice que me comunique con el admin del servicio',
 						status: 'CLOSED',
 						createdAt: getIsoDate('2022-12-20'),
+						projectId: 1,
 					},
 				],
 			},
@@ -111,6 +157,24 @@ async function main() {
 				createdAt: getIsoDate('2022-12-20T11:32'),
 			},
 		],
+	});
+
+	await prisma.project.update({
+		where: { id: 1 },
+		data: {
+			assignedUsers: {
+				connect: [{ id: testUser.id }, { id: testDev.id }],
+			},
+		},
+	});
+
+	await prisma.project.update({
+		where: { id: 2 },
+		data: {
+			assignedUsers: {
+				connect: { id: testUser.id },
+			},
+		},
 	});
 
 	if (ticketMessages.length > 0) {

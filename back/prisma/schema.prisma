@@ -11,15 +11,17 @@ datasource db {
 }
 
 model User {
-  id              Int             @id @default(autoincrement())
-  name            String
-  email           String          @unique
-  password        String
-  role            Role            @default(USER)
-  tickets         Ticket[]        @relation("Author")
-  ticketMessages  TicketMessage[]
-  ticketsAssigned Ticket[]        @relation("AssignedTo")
-  projects        Project[]
+  id               Int             @id @default(autoincrement())
+  name             String
+  email            String          @unique
+  password         String
+  role             Role            @default(USER)
+  tickets          Ticket[]        @relation("TicketsCreated")
+  ticketMessages   TicketMessage[]
+  assignedTickets  Ticket[]        @relation("AssignedTickets")
+  //
+  assignedProjects Project[]       @relation("AssignedProjects")
+  createdProjects  Project[]       @relation("CreatedProjects")
 }
 
 model Ticket {
@@ -29,12 +31,14 @@ model Ticket {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   status         TicketStatus    @default(OPEN)
-  author         User            @relation(name: "Author", fields: [authorId], references: [id])
+  author         User            @relation(name: "TicketsCreated", fields: [authorId], references: [id])
   authorId       Int
   ticketMessages TicketMessage[]
   //
-  assignedTo     User?           @relation(name: "AssignedTo", fields: [assignedToId], references: [id])
+  assignedTo     User?           @relation(name: "AssignedTickets", fields: [assignedToId], references: [id])
   assignedToId   Int?
+  project        Project         @relation(fields: [projectId], references: [id])
+  projectId      Int
 }
 
 model TicketMessage {
@@ -48,11 +52,14 @@ model TicketMessage {
 }
 
 model Project {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  users       User[]
-  createdAt   DateTime @default(now())
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String
+  assignedUsers User[]   @relation("AssignedProjects")
+  author        User     @relation(name: "CreatedProjects", fields: [authorId], references: [id])
+  authorId      Int
+  tickets       Ticket[]
+  createdAt     DateTime @default(now()) //
 }
 
 enum Role {
