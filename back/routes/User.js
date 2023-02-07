@@ -11,7 +11,7 @@ const {
 	authorizeRole,
 } = require('../middleware/authMiddleware');
 
-router.get('/', authorizeUser, authorizeRole('ADMIN'), getUsers);
+router.get('/', authorizeUser, authorizeRole(['MANAGER', 'ADMIN']), getUsers);
 router.get('/:id', authorizeUser, authorizeRole('ADMIN'), getUserById);
 router.post('/', createUser);
 router.patch('/:id', authorizeUser, authorizeRole('ADMIN'), updateUser);
