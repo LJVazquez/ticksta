@@ -66,6 +66,25 @@ const validateTicketUpdateData = (data) => {
 	return validateSchema(ticketSchema, data);
 };
 
+const validateProjectCreationData = (data) => {
+	const ticketSchema = Joi.object({
+		name: Joi.string().min(6).max(100).required(),
+		description: Joi.string().min(10).max(300).required(),
+		authorId: Joi.number().integer().required(),
+	});
+
+	return validateSchema(ticketSchema, data);
+};
+
+const validateProjectUpdateData = (data) => {
+	const ticketSchema = Joi.object({
+		name: Joi.string().min(6).max(100),
+		description: Joi.string().min(10).max(300),
+	});
+
+	return validateSchema(ticketSchema, data);
+};
+
 const validateTicketMessageCreationData = (data) => {
 	const ticketMessageSchema = Joi.object({
 		message: Joi.string().min(10).max(300).required(),
@@ -82,4 +101,6 @@ module.exports = {
 	validateTicketCreationData,
 	validateTicketUpdateData,
 	validateTicketMessageCreationData,
+	validateProjectCreationData,
+	validateProjectUpdateData,
 };

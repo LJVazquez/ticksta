@@ -75,7 +75,7 @@ const getTicketRows = (tickets) => {
 
 export default function TicketsTable({ tickets }) {
 	return (
-		<div className="table-responsive bg-light p-3 mb-3 rounded-4 ">
+		<div className="table-responsive bg-light p-3 mb-3 rounded-4">
 			<table className="table table-light table-hover table-sm">
 				<thead>
 					<tr>

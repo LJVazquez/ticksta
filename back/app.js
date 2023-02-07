@@ -9,6 +9,7 @@ const apiRoute = '/api/v1';
 
 const userRouter = require('./routes/User.js');
 const ticketRouter = require('./routes/Ticket.js');
+const projectRouter = require('./routes/Project.js');
 const ticketMessageRouter = require('./routes/TicketMessage.js');
 const authRouter = require('./routes/Auth.js');
 const { authorizeUser } = require('./middleware/authMiddleware');
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use(`${apiRoute}/users`, userRouter);
 app.use(`${apiRoute}/tickets`, authorizeUser, ticketRouter);
+app.use(`${apiRoute}/projects`, authorizeUser, projectRouter);
 app.use(`${apiRoute}/ticketmessages`, authorizeUser, ticketMessageRouter);
 app.use(`${apiRoute}/auth`, authRouter);
 

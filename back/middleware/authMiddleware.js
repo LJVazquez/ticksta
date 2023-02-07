@@ -29,17 +29,22 @@ const authorizeUser = async (req, res, next) => {
 	}
 };
 
-function authorizeRole(requiredRole) {
-	const _authorizeRoleCallback = (req, res, next) => {
+function authorizeRole(requiredRoles) {
+	const _authorizeRole = (req, res, next) => {
 		const userRole = req.authData.userRole;
 
-		if (userRole !== requiredRole) {
-			return res.status(403).json({ error: 'Unauthorized' });
+		if (typeof requiredRoles === 'string' && userRole === requiredRoles) {
+			return next();
 		}
-		next();
+
+		if (requiredRoles instanceof Array && requiredRoles.includes(userRole)) {
+			return next();
+		}
+
+		return res.status(403).json({ error: 'Unauthorized' });
 	};
 
-	return _authorizeRoleCallback;
+	return _authorizeRole;
 }
 
 module.exports = { authorizeUser, authorizeRole };
