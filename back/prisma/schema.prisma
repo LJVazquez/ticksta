@@ -39,6 +39,8 @@ model Ticket {
   assignedToId   Int?
   project        Project         @relation(fields: [projectId], references: [id])
   projectId      Int
+  type           TicketType
+  priority       Priority        @default(LOW)
 }
 
 model TicketMessage {
@@ -81,4 +83,11 @@ enum Priority {
   LOW
   MEDIUM
   HIGH
+}
+
+enum TicketType {
+  BUG
+  ISSUE
+  OTHER
+  FEATURE_REQ
 }

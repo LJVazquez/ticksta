@@ -5,7 +5,6 @@ const {
 	getTicketById,
 	createTicket,
 	updateTicket,
-	getTicketsByUserId,
 	getLatestTickets,
 	getTicketStats,
 } = require('../controllers/Ticket');
@@ -14,9 +13,12 @@ const { authorizeRole } = require('../middleware/authMiddleware');
 router.get('/', getTickets);
 router.get('/stats', authorizeRole('ADMIN'), getTicketStats);
 router.get('/:id', getTicketById);
-router.get('/user/:id', getTicketsByUserId);
-router.get('/latest/:amount', authorizeRole('ADMIN'), getLatestTickets);
+router.get(
+	'/latest/:amount',
+	authorizeRole(['MANAGER', 'ADMIN']),
+	getLatestTickets
+);
 router.post('/', authorizeRole('USER'), createTicket);
-router.patch('/:id', authorizeRole('ADMIN'), updateTicket);
+router.patch('/:id', authorizeRole(['ADMIN', 'DEV']), updateTicket);
 
 module.exports = router;

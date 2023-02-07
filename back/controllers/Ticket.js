@@ -11,20 +11,28 @@ const getTickets = async (req, res) => {
 	const { userId, userRole } = req.authData;
 
 	try {
-		let tickets;
+		let tickets = [];
 
-		if (userRole === 'ADMIN') {
+		if (userRole === 'ADMIN' || userRole === 'MANAGER') {
 			tickets = await prisma.ticket.findMany({});
-		} else {
+		}
+
+		if (userRole === 'USER') {
 			tickets = await prisma.ticket.findMany({
 				where: { authorId: userId },
+			});
+		}
+
+		if (userRole === 'DEV') {
+			tickets = await prisma.ticket.findMany({
+				where: { assignedToId: userId },
 			});
 		}
 
 		res.json(tickets);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
@@ -50,6 +58,18 @@ const createTicket = async (req, res) => {
 	}
 };
 
+//* helper de getTicketById
+const userHasReadPermission = (user, ticket) => {
+	const userHasAllowedRole =
+		user.userRole === 'ADMIN' || user.userRole === 'MANAGER';
+
+	const userIsAssignedToProject = ticket.project.assignedUsers.some(
+		(assignedUser) => assignedUser.id === user.userId
+	);
+
+	return userHasAllowedRole || userIsAssignedToProject;
+};
+
 const getTicketById = async (req, res) => {
 	const ticketId = parseInt(req.params.id);
 	authUserData = req.authData;
@@ -63,6 +83,11 @@ const getTicketById = async (req, res) => {
 			where: { id: ticketId },
 			include: {
 				author: { select: { name: true } },
+				project: {
+					include: {
+						assignedUsers: { select: { id: true, name: true, role: true } },
+					},
+				},
 				ticketMessages: {
 					include: {
 						user: { select: { name: true } },
@@ -76,36 +101,14 @@ const getTicketById = async (req, res) => {
 			return res.status(404).json({ error: 'Ticket no encontrado' });
 		}
 
-		if (
-			authUserData.userRole !== 'ADMIN' &&
-			ticket.authorId !== authUserData.userId
-		) {
+		if (!userHasReadPermission(authUserData, ticket)) {
 			return res.status(401).json({ error: 'Unauthorized' });
 		}
 
 		res.json(ticket);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
-	}
-};
-
-const getTicketsByUserId = async (req, res) => {
-	const userId = parseInt(req.params.id);
-	authUserData = req.authData;
-
-	if (authUserData.userRole !== 'ADMIN' && userId !== authUserData.userId) {
-		return res.status(401).json({ error: 'Unauthorized' });
-	}
-
-	try {
-		const tickets = await prisma.ticket.findMany({
-			where: { authorId: userId },
-		});
-		res.json(tickets);
-	} catch (e) {
-		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
@@ -133,14 +136,33 @@ const getLatestTickets = async (req, res) => {
 const updateTicket = async (req, res) => {
 	const ticketId = parseInt(req.params.id);
 	const data = req.body;
+	authUserData = req.authData;
 
-	const validationErrors = validateTicketUpdateData(data);
+	const validationErrors = validateTicketUpdateData(
+		data,
+		authUserData.userRole
+	);
 
 	if (validationErrors) {
 		return res.status(409).json({ error: validationErrors });
 	}
 
 	try {
+		const ticket = await prisma.ticket.findUnique({
+			where: { id: ticketId },
+		});
+
+		if (
+			authUserData.userRole === 'DEV' &&
+			ticket.assignedToId !== authUserData.userId
+		) {
+			return res.status(401).json({ error: 'Unauthorized' });
+		}
+
+		if (!ticket) {
+			return res.status(404).json({ error: 'Ticket no encontrado' });
+		}
+
 		const updatedTicket = await prisma.ticket.update({
 			where: { id: ticketId },
 			data: data,
@@ -150,62 +172,6 @@ const updateTicket = async (req, res) => {
 		});
 
 		res.json(updatedTicket);
-	} catch (e) {
-		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
-	}
-};
-
-const createTicketMessage = async (req, res) => {
-	const data = req.body;
-	const ticketId = parseInt(req.params.id);
-	const authUserData = req.authData;
-
-	const validationErrors = validateTicketMessageCreationData(data);
-
-	if (validationErrors) {
-		return res.status(409).json({ error: validationErrors });
-	}
-
-	try {
-		const ticket = await prisma.ticket.findUnique({ where: { id: ticketId } });
-
-		if (
-			authUserData.userRole !== 'ADMIN' &&
-			ticket.userId !== authUserData.userId
-		) {
-			return res.status(401).json({ error: 'Unauthorized' });
-		}
-
-		const newMessage = await prisma.ticketMessage.create({
-			data: {
-				...data,
-				ticketId,
-				userId: authUserData.userId,
-			},
-			include: {
-				user: { select: { name: true } },
-			},
-		});
-
-		res.json(newMessage);
-	} catch (e) {
-		console.error(e);
-		res.status(500).json({ error: e.meta });
-	}
-};
-
-const getLatestMessages = async (req, res) => {
-	const messagesAmount = parseInt(req.params.amount);
-	authUserData = req.authData;
-
-	try {
-		const messages = await prisma.ticketMessage.findMany({
-			take: messagesAmount,
-			orderBy: { createdAt: 'desc' },
-		});
-
-		res.json(messages);
 	} catch (e) {
 		console.error(e);
 		res.status(500).json({ error: e.meta.cause });
@@ -238,10 +204,7 @@ module.exports = {
 	getTickets,
 	getTicketById,
 	createTicket,
-	getTicketsByUserId,
 	updateTicket,
-	createTicketMessage,
 	getLatestTickets,
-	getLatestMessages,
 	getTicketStats,
 };

@@ -44,26 +44,42 @@ const validateLoginData = (data) => {
 	return validateSchema(loginSchema, data);
 };
 
+const ticketStatuses = ['OPEN', 'INPROG', 'PENDING', 'RESOLVED', 'CLOSED'];
+const ticketTypes = ['BUG', 'ISSUE', 'OTHER', 'FEATURE_REQ'];
+const ticketPriorities = ['LOW', 'MEDIUM', 'HIGH'];
+
 const validateTicketCreationData = (data) => {
-	const ticketStatuses = ['OPEN', 'INPROG', 'PENDING', 'RESOLVED', 'CLOSED'];
 	const ticketSchema = Joi.object({
 		subject: Joi.string().min(6).max(100).required(),
 		description: Joi.string().min(10).max(300).required(),
 		status: Joi.string().valid(...ticketStatuses),
+		projectId: Joi.number().integer().required(),
+		assignedToId: Joi.number().integer().required(),
+		type: Joi.string()
+			.valid(...ticketTypes)
+			.required(),
+		priority: Joi.string().valid(...ticketPriorities),
 	});
 
 	return validateSchema(ticketSchema, data);
 };
 
-const validateTicketUpdateData = (data) => {
-	const ticketStatuses = ['OPEN', 'INPROG', 'PENDING', 'RESOLVED', 'CLOSED'];
-	const ticketSchema = Joi.object({
-		subject: Joi.string().min(10).max(100),
-		description: Joi.string().min(10).max(300),
-		status: Joi.string().valid(...ticketStatuses),
-	});
+const validateTicketUpdateData = (data, userRole) => {
+	const ticketSchemas = {
+		ADMIN: Joi.object({
+			subject: Joi.string().min(6).max(100),
+			description: Joi.string().min(10).max(300),
+			status: Joi.string().valid(...ticketStatuses),
+			projectId: Joi.number().integer(),
+			assignedToId: Joi.number().integer(),
+			type: Joi.string().valid(...ticketTypes),
+			priority: Joi.string().valid(...ticketPriorities),
+		}),
+		DEV: Joi.object({ status: Joi.string().valid(...ticketStatuses) }),
+		MANAGER: Joi.object({ assignedToId: Joi.number().integer() }),
+	};
 
-	return validateSchema(ticketSchema, data);
+	return validateSchema(ticketSchemas[userRole], data);
 };
 
 const validateProjectCreationData = (data) => {

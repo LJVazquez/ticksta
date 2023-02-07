@@ -65,6 +65,7 @@ async function main() {
 						createdAt: getIsoDate('2023-01-21'),
 						projectId: 1,
 						assignedToId: testDev.id,
+						type: 'ISSUE',
 					},
 					{
 						id: 2,
@@ -75,6 +76,7 @@ async function main() {
 						createdAt: getIsoDate('2023-01-20'),
 						projectId: 1,
 						assignedToId: testDev.id,
+						type: 'ISSUE',
 					},
 					{
 						id: 3,
@@ -84,7 +86,8 @@ async function main() {
 							'Necesito permisos de root para la ruta principal de la aplicacion XT322, si no no puedo conectarme a la base de datos',
 						status: 'RESOLVED',
 						createdAt: getIsoDate('2023-01-19'),
-						projectId: 1,
+						projectId: 2,
+						type: 'ISSUE',
 					},
 					{
 						id: 4,
@@ -93,7 +96,8 @@ async function main() {
 							'Al intentar acceder a ms teams me sale un mensaje que dice que me comunique con el admin del servicio',
 						status: 'CLOSED',
 						createdAt: getIsoDate('2022-12-20'),
-						projectId: 1,
+						projectId: 2,
+						type: 'ISSUE',
 					},
 				],
 			},
