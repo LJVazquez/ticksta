@@ -2,8 +2,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import {
 	formatDate,
+	ticketPrioritiesEquivalent,
 	ticketStatusBackgroundColors,
 	ticketStatusEquivalent,
+	ticketTypesEquivalent,
 } from '../utils/formats';
 import ChangeTicketStatusForm from './ChangeTicketStatusForm';
 import InputReadOnly from './InputReadOnly';
@@ -13,7 +15,6 @@ export default function TicketDetailData({ ticket, setTicket }) {
 	const { authUser } = useContext(AuthContext);
 
 	if (ticket) {
-		const createdAt = ticket && formatDate(ticket.createdAt);
 		const badgeColor =
 			ticket && `bg-${ticketStatusBackgroundColors[ticket['status']]}`;
 
@@ -32,16 +33,22 @@ export default function TicketDetailData({ ticket, setTicket }) {
 						<InputReadOnly value={ticket.subject}>Tema</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<InputReadOnly value={ticket.author.name}>Creado</InputReadOnly>
+						<InputReadOnly value={ticket.author.name}>Creador</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<InputReadOnly value={'Marcos Laporte'}>Asignado</InputReadOnly>
+						<InputReadOnly value={ticket.assignedTo.name}>
+							Asignado
+						</InputReadOnly>
 					</div>
 					<div className="col-6 d-flex align-items-center">
-						<InputReadOnly value={'Alta'}>Priridad</InputReadOnly>
+						<InputReadOnly value={ticketPrioritiesEquivalent[ticket.priority]}>
+							Priridad
+						</InputReadOnly>
 					</div>
 					<div className="col-6 d-flex align-items-center">
-						<InputReadOnly value={'BUG'}>Tipo</InputReadOnly>
+						<InputReadOnly value={ticketTypesEquivalent[ticket.type]}>
+							Tipo
+						</InputReadOnly>
 					</div>
 					{authUser.userRole !== 'USER' && (
 						<div className="row mt-3">

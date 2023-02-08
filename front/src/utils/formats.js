@@ -15,6 +15,12 @@ export const ticketTypesEquivalent = {
 	ISSUE: 'Problema',
 };
 
+export const ticketPrioritiesEquivalent = {
+	LOW: 'Baja',
+	MEDIUM: 'Media',
+	HIGH: 'Alta',
+};
+
 export const UserRoleEquivalent = {
 	USER: 'Usuario',
 	ADMIN: 'Admin',

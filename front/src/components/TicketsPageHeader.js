@@ -10,7 +10,9 @@ export default function TicketsPageHeader(props) {
 
 	return (
 		<div className="row mb-5 justify-content-between">
-			<h1 className="fw-bold">Tickets</h1>
+			<h1 className="fw-bold">
+				<i className="bi bi-ticket-fill text-warning me-2"></i>Tickets
+			</h1>
 			<motion.div layoutId="newTicketForm" className="col-auto">
 				{authUser.userRole === 'USER' && (
 					<div>

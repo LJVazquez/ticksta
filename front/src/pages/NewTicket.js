@@ -11,7 +11,10 @@ import Input from '../components/Input';
 import TextArea from '../components/TextArea';
 import { newTicketConstraints } from '../utils/constraints';
 import InputSelect from '../components/InputSelect';
-import { ticketTypesEquivalent } from '../utils/formats';
+import {
+	ticketPrioritiesEquivalent,
+	ticketTypesEquivalent,
+} from '../utils/formats';
 import ErrorAlert from '../components/ErrorAlert';
 
 export default function NewTicket() {
@@ -50,9 +53,14 @@ export default function NewTicket() {
 	};
 
 	const ticketTypes = ['BUG', 'FEATURE_REQ', 'OTHER', 'ISSUE'];
+	const ticketPriorities = ['LOW', 'MEDIUM', 'HIGH'];
 	const typeOptions = ticketTypes.map((type) => ({
 		label: ticketTypesEquivalent[type],
 		value: type,
+	}));
+	const priorityOptions = ticketPriorities.map((priority) => ({
+		label: ticketPrioritiesEquivalent[priority],
+		value: priority,
 	}));
 
 	return (
@@ -77,6 +85,12 @@ export default function NewTicket() {
 						options={typeOptions}
 						error={errors.type}
 						rhfData={register('type', newTicketConstraints['type'])}
+					/>
+					<InputSelect
+						name="Prioridad"
+						options={priorityOptions}
+						error={errors.priority}
+						rhfData={register('priority', newTicketConstraints['priority'])}
 					/>
 					<TextArea
 						name={'Descripcion'}

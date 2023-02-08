@@ -10,7 +10,9 @@ export default function UsersPageHeader(props) {
 
 	return (
 		<div className="row mb-5 justify-content-between">
-			<h1 className="fw-bold mx-2">Usuarios</h1>
+			<h1 className="fw-bold mx-2">
+				<i className="bi bi-person-fill text-info"></i> Usuarios
+			</h1>
 			<motion.div layoutId="newTicketForm" className="col-auto">
 				{authUser.userRole === 'w' && (
 					<div>

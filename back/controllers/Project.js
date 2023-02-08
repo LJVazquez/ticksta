@@ -13,15 +13,31 @@ const getProjects = async (req, res) => {
 		let projects;
 
 		if (userRole === 'ADMIN' || userRole === 'MANAGER') {
-			projects = await prisma.ticket.findMany({});
+			projects = await prisma.project.findMany({
+				include: {
+					_count: {
+						select: { tickets: true, assignedUsers: true },
+					},
+				},
+			});
+
+			res.json(projects);
 		} else {
 			projects = await prisma.user.findUnique({
 				where: { id: userId },
-				select: { assignedProjects: true },
+				select: {
+					assignedProjects: {
+						include: {
+							_count: {
+								select: { tickets: true, assignedUsers: true },
+							},
+						},
+					},
+				},
 			});
-		}
 
-		res.json(projects.assignedProjects);
+			res.json(projects.assignedProjects);
+		}
 	} catch (e) {
 		console.error(e);
 		res.status(500).json({ error: e.message });

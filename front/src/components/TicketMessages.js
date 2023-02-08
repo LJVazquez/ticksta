@@ -33,7 +33,7 @@ export default function TicketMessages({ messages }) {
 								<div className="fw-bold">
 									{message.user.name} ({createdAt}):
 								</div>
-								<span>{message.message}</span>
+								<span className="px-2">{message.message}</span>
 							</div>
 						);
 					})

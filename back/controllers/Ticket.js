@@ -83,6 +83,7 @@ const getTicketById = async (req, res) => {
 			where: { id: ticketId },
 			include: {
 				author: { select: { name: true } },
+				assignedTo: { select: { name: true } },
 				project: {
 					include: {
 						assignedUsers: { select: { id: true, name: true, role: true } },
@@ -168,6 +169,18 @@ const updateTicket = async (req, res) => {
 			data: data,
 			include: {
 				author: { select: { name: true } },
+				assignedTo: { select: { name: true } },
+				project: {
+					include: {
+						assignedUsers: { select: { id: true, name: true, role: true } },
+					},
+				},
+				ticketMessages: {
+					include: {
+						user: { select: { name: true } },
+					},
+					orderBy: { createdAt: 'desc' },
+				},
 			},
 		});
 

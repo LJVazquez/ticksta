@@ -58,11 +58,22 @@ export default function Header() {
 													locationPath.includes('users') && 'active'
 												}`}
 											>
-												Users
+												Usuarios
 											</Link>
 										</li>
 									</>
 								)}
+
+								<li className="nav-item">
+									<Link
+										to="/projects"
+										className={`nav-link ${
+											locationPath.includes('projects') && 'active'
+										}`}
+									>
+										Proyectos
+									</Link>
+								</li>
 
 								<li className="nav-item">
 									<Link

@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import RegisterUser from './pages/RegisterUser';
 import FourOFour from './pages/FourOFour';
 import Users from './pages/Users';
+import Projects from './pages/Projects';
 
 function App() {
 	return (
@@ -55,6 +56,14 @@ function App() {
 					element={
 						<ProtectedRoute authRoles={['ADMIN']}>
 							<Users />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="projects"
+					element={
+						<ProtectedRoute>
+							<Projects />
 						</ProtectedRoute>
 					}
 				/>
