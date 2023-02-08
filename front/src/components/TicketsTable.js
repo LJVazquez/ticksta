@@ -43,7 +43,11 @@ const getTicketRows = (tickets) => {
 			const badgeColor = `bg-${ticketStatusBackgroundColors[ticket['status']]}`;
 
 			return (
-				<motion.tr initial="false" key={ticket.id} {...trAnimationSettings}>
+				<motion.tr
+					initial="false"
+					key={ticket.id + ticket.subject}
+					{...trAnimationSettings}
+				>
 					<th scope="row">{ticket.id}</th>
 					<td>
 						<Link
@@ -55,11 +59,14 @@ const getTicketRows = (tickets) => {
 							</motion.div>
 						</Link>
 					</td>
+
 					<td>
 						<span className={`badge ${badgeColor}`}>
 							{ticketStatusEquivalent[ticket.status]}
 						</span>
 					</td>
+					<td>{ticket.author.name}</td>
+					<td>{ticket.assignedTo?.name || 'Sin asignar'}</td>
 					<td>{createdAt}</td>
 				</motion.tr>
 			);
@@ -75,12 +82,14 @@ const getTicketRows = (tickets) => {
 
 export default function TicketsTable({ tickets }) {
 	return (
-		<div className="table-responsive bg-light p-3 mb-3 rounded-4">
+		<div className="table-responsive bg-light p-3 mb-3 mx-md-3 rounded-4">
 			<table className="table table-light table-hover table-sm">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Tema</th>
+						<th scope="col">Creado</th>
+						<th scope="col">Asignado</th>
 						<th scope="col">Status</th>
 						<th scope="col">Fecha</th>
 					</tr>

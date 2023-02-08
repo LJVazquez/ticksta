@@ -23,7 +23,8 @@ export default function TicketDetailData({ ticket, setTicket }) {
 				<div className="row bg-white p-3 rounded-4 mb-3 shadow-sm mx-1">
 					<div className="col-12 d-flex align-items-center justify-content-between mb-2">
 						<h3>
-							<i className="bi bi-ticket-fill me-2 text-info"></i>#{ticket.id}
+							<i className="bi bi-ticket-fill me-2 text-warning"></i>#
+							{ticket.id}
 						</h3>
 						<span className={`badge ${badgeColor}`}>
 							{ticketStatusEquivalent[ticket.status]}

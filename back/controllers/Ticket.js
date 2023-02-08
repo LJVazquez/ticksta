@@ -4,28 +4,34 @@ const prisma = new PrismaClient();
 const {
 	validateTicketCreationData,
 	validateTicketUpdateData,
-	validateTicketMessageCreationData,
 } = require('../utils/schemaValidators.js');
 
 const getTickets = async (req, res) => {
 	const { userId, userRole } = req.authData;
 
+	const dataToInclude = {
+		author: { select: { name: true } },
+		assignedTo: { select: { name: true } },
+	};
+
 	try {
 		let tickets = [];
 
 		if (userRole === 'ADMIN' || userRole === 'MANAGER') {
-			tickets = await prisma.ticket.findMany({});
+			tickets = await prisma.ticket.findMany({ include: dataToInclude });
 		}
 
 		if (userRole === 'USER') {
 			tickets = await prisma.ticket.findMany({
 				where: { authorId: userId },
+				include: dataToInclude,
 			});
 		}
 
 		if (userRole === 'DEV') {
 			tickets = await prisma.ticket.findMany({
 				where: { assignedToId: userId },
+				include: dataToInclude,
 			});
 		}
 

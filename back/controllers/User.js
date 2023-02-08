@@ -20,6 +20,22 @@ const getUsers = async (req, res) => {
 	}
 };
 
+const getAssignableUsers = async (req, res) => {
+	try {
+		let users = await prisma.user.findMany({
+			where: {
+				OR: [{ role: 'USER' }, { role: 'DEV' }],
+			},
+		});
+		users.map((user) => removeUserPrivateData(user));
+
+		res.json(users);
+	} catch (e) {
+		console.error(e.message);
+		res.status(500).json({ error: e.message });
+	}
+};
+
 const createUser = async (req, res) => {
 	const data = req.body;
 
@@ -119,4 +135,5 @@ module.exports = {
 	getUserByEmail,
 	createUser,
 	updateUser,
+	getAssignableUsers,
 };

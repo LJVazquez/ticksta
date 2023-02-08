@@ -21,28 +21,29 @@ export async function fetchProjectStats(token) {
 	return res.data;
 }
 
-export async function fetchLatestProjects(ticketAmount, token) {
+export async function fetchLatestProjects(projectAmount, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },
 	};
 
-	const uri = `${projectsUri}/latest/${ticketAmount}`;
+	const uri = `${projectsUri}/latest/${projectAmount}`;
 
 	const res = await axios.get(uri, config);
 	return res.data;
 }
 
-export async function fetchProjectById(ticketId, token) {
+export async function fetchProjectById(projectId, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },
 	};
 
-	const uri = `${projectsUri}/${ticketId}/`;
+	const uri = `${projectsUri}/${projectId}/`;
 
 	const res = await axios.get(uri, config);
 	return res.data;
 }
 
+//TODO
 export async function createProject(subject, description, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },
@@ -51,5 +52,29 @@ export async function createProject(subject, description, token) {
 	const data = { subject, description };
 
 	const res = await axios.post(projectsUri, data, config);
+	return res.data;
+}
+
+export async function addUserToProject(projectId, userEmail, token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const data = { userEmail };
+	const uri = `${projectsUri}/${projectId}/add-member`;
+
+	const res = await axios.post(uri, data, config);
+	return res.data;
+}
+
+export async function removeUserFromProject(projectId, userEmail, token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const data = { userEmail };
+	const uri = `${projectsUri}/${projectId}/remove-member`;
+
+	const res = await axios.post(uri, data, config);
 	return res.data;
 }

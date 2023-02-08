@@ -19,6 +19,16 @@ export async function fetchAllUsers(token) {
 	return res.data;
 }
 
+export async function fetchAssignableUsers(token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const uri = `${usersUri}/assignable/`;
+	const res = await axios.get(uri, config);
+	return res.data;
+}
+
 export async function changeUserRole(userId, role, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },

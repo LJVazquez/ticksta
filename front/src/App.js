@@ -11,6 +11,7 @@ import RegisterUser from './pages/RegisterUser';
 import FourOFour from './pages/FourOFour';
 import Users from './pages/Users';
 import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 
 function App() {
 	return (
@@ -64,6 +65,14 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<Projects />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="projects/:projectId"
+					element={
+						<ProtectedRoute>
+							<ProjectDetail />
 						</ProtectedRoute>
 					}
 				/>
