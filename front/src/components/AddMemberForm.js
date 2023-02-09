@@ -9,7 +9,8 @@ export default function AddMemberForm({
 	onUserAssignment,
 }) {
 	const [assignableUsers, setAssignableUsers] = useState();
-	const [selectedMember, setSelectedMember] = useState('');
+	const [selectedMemberEmail, setSelectedMemberEmail] = useState('');
+	const [error, setError] = useState(null);
 	const { authToken } = useContext(AuthContext);
 
 	const handleError = useHandleAxiosError();
@@ -38,17 +39,24 @@ export default function AddMemberForm({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		if (selectedMember.length > 0) {
-			addMember(selectedMember);
+		const userIsAssignable = assignableUsers.some(
+			(assignableUser) => assignableUser.email === selectedMemberEmail
+		);
 
-			const usersLeft = assignableUsers.filter(
-				(assignableUser) => assignableUser.email !== selectedMember
-			);
-			setAssignableUsers(usersLeft);
-
-			setSelectedMember('');
-			onUserAssignment();
+		if (!userIsAssignable) {
+			setError('No se encontró al usuario');
+			return;
 		}
+
+		addMember(selectedMemberEmail);
+
+		const usersLeft = assignableUsers.filter(
+			(assignableUser) => assignableUser.email !== selectedMemberEmail
+		);
+		setAssignableUsers(usersLeft);
+
+		setSelectedMemberEmail('');
+		onUserAssignment();
 	};
 
 	return (
@@ -56,28 +64,21 @@ export default function AddMemberForm({
 			className="bg-light p-3 mx-3 rounded-4 mb-3"
 			onSubmit={(e) => handleSubmit(e)}
 		>
-			{assignableUsers?.length > 0 ? (
-				<>
-					<p>Asignar al equipo</p>
-					<div className="input-group">
-						<input
-							value={selectedMember}
-							onChange={(e) => setSelectedMember(e.target.value)}
-							type="text"
-							className="form-control rounded-3 rounded-end"
-							list="members"
-							autoComplete="off"
-						/>
-						<button className="btn btn-dark rounded-3 rounded-start">
-							Asignar
-						</button>
-					</div>
-				</>
-			) : (
-				<span className="text-danger">
-					No se encontraron usuarios asignables
-				</span>
-			)}
+			<p>Asignar al equipo</p>
+			<div className="input-group">
+				<input
+					value={selectedMemberEmail}
+					onChange={(e) => setSelectedMemberEmail(e.target.value)}
+					type="text"
+					className="form-control rounded-3 rounded-end"
+					list="members"
+					autoComplete="off"
+				/>
+				<button className="btn btn-dark rounded-3 rounded-start">
+					Asignar
+				</button>
+			</div>
+			{error && <small className="text-danger">{error}</small>}
 
 			<datalist id="members">
 				{assignableUsers?.map((user) => (

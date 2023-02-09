@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { UserRoleEquivalent } from '../utils/formats';
 import { motion, AnimatePresence } from 'framer-motion';
 import AddMemberForm from './AddMemberForm';
+import RemoveMemberTd from './RemoveMemberTd';
 
 const getSkeleton = () => {
 	let tableRows = [];
@@ -20,7 +21,7 @@ const getSkeleton = () => {
 	return tableRows;
 };
 
-const getUsersRows = (users) => {
+const getUsersRows = (users, removeMember) => {
 	return users?.length > 0 ? (
 		users.map((user) => {
 			return (
@@ -29,6 +30,10 @@ const getUsersRows = (users) => {
 					<td>{user.email}</td>
 					<td>011-2232-2123</td>
 					<td>{UserRoleEquivalent[user.role]}</td>
+					<RemoveMemberTd
+						user={user}
+						removeMember={() => removeMember(user.email)}
+					/>
 				</tr>
 			);
 		})
@@ -47,7 +52,7 @@ const smallAnimationSettings = {
 	exit: { opacity: 0 },
 };
 
-export default function ProjectUsersTable({ users, addMember }) {
+export default function ProjectUsersTable({ users, addMember, removeMember }) {
 	const [isAddMemberDisplayed, setIsAddMemberDisplayed] = useState(false);
 	const [userAssigned, setUserAssigned] = useState(false);
 	const { authUser } = useContext(AuthContext);
@@ -104,9 +109,12 @@ export default function ProjectUsersTable({ users, addMember }) {
 							<th>Email</th>
 							<th>Tel.</th>
 							<th>Rol</th>
+							<th></th>
 						</tr>
 					</thead>
-					<tbody>{users ? getUsersRows(users) : getSkeleton()}</tbody>
+					<tbody>
+						{users ? getUsersRows(users, removeMember) : getSkeleton()}
+					</tbody>
 				</table>
 			</div>
 		</div>

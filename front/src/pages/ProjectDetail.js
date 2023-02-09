@@ -56,11 +56,11 @@ export default function ProjectDetail() {
 		}
 	};
 
-	const removeMember = async (userId) => {
+	const removeMember = async (userEmail) => {
 		try {
 			const updatedProject = await removeUserFromProject(
 				parseInt(projectId),
-				parseInt(userId),
+				userEmail,
 				authToken
 			);
 			setProject(updatedProject);
