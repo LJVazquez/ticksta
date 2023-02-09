@@ -44,6 +44,36 @@ const getProjects = async (req, res) => {
 	}
 };
 
+const getProjectDevs = async (req, res) => {
+	const projectId = parseInt(req.params.id);
+	authUserData = req.authData;
+
+	if (isNaN(projectId)) {
+		return res.status(400).json({ error: 'Error en el id' });
+	}
+
+	try {
+		const project = await prisma.project.findUnique({
+			where: { id: projectId },
+			include: {
+				assignedUsers: {
+					where: { role: 'DEV' },
+					select: { id: true, name: true, email: true },
+				},
+			},
+		});
+
+		if (!project) {
+			return res.status(404).json({ error: 'Proyecto no encontrado' });
+		}
+
+		res.json(project.assignedUsers);
+	} catch (e) {
+		console.error(e);
+		res.status(500).json({ error: e.message });
+	}
+};
+
 const createProject = async (req, res) => {
 	const data = req.body;
 	const authUserId = req.authData.userId;
@@ -262,4 +292,5 @@ module.exports = {
 	getLatestProjects,
 	addUserToProject,
 	removeUserFromProject,
+	getProjectDevs,
 };

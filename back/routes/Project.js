@@ -8,11 +8,13 @@ const {
 	updateProject,
 	addUserToProject,
 	removeUserFromProject,
+	getProjectDevs,
 } = require('../controllers/Project');
 const { authorizeRole } = require('../middleware/authMiddleware');
 
 router.get('/', getProjects);
 router.get('/:id', getProjectById);
+router.get('/:id/devs', authorizeRole(['MANAGER', 'ADMIN']), getProjectDevs);
 router.get(
 	'/latest/:amount',
 	authorizeRole(['MANAGER', 'ADMIN']),

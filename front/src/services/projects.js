@@ -43,6 +43,17 @@ export async function fetchProjectById(projectId, token) {
 	return res.data;
 }
 
+export async function fetchProjectDevs(projectId, token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const uri = `${projectsUri}/${projectId}/devs`;
+
+	const res = await axios.get(uri, config);
+	return res.data;
+}
+
 //TODO
 export async function createProject(subject, description, token) {
 	const config = {

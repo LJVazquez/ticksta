@@ -28,7 +28,7 @@ export default function Login() {
 		if (authUser !== null) {
 			authUser.userRole === 'ADMIN'
 				? navigate('/dashboard')
-				: navigate('/tickets');
+				: navigate('/projects');
 		}
 	}, [authUser]);
 

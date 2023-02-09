@@ -82,3 +82,15 @@ export async function updateTicketStatus(ticketId, status, token) {
 	const res = await axios.patch(uri, data, config);
 	return res.data;
 }
+
+export async function assignTicketDev(ticketId, devId, token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const data = { assignedToId: devId };
+	const uri = `${ticketsUri}/${ticketId}/`;
+
+	const res = await axios.patch(uri, data, config);
+	return res.data;
+}
