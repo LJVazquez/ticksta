@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import {
 	formatDate,
@@ -13,6 +14,8 @@ import TextAreaReadOnly from './TextAreaReadOnly';
 
 export default function TicketDetailData({ ticket, setTicket }) {
 	const { authUser } = useContext(AuthContext);
+
+	console.log(`ticket`, ticket);
 
 	if (ticket) {
 		const badgeColor =
@@ -31,13 +34,22 @@ export default function TicketDetailData({ ticket, setTicket }) {
 						</span>
 					</div>
 					<div className="col-12 d-flex align-items-center mb-3">
+						<label className="fw-bold d-flex me-2">Proyecto:</label>
+						<Link
+							to={`/project/${ticket.project.id}`}
+							className="text-decoration-none"
+						>
+							{ticket.project.name}
+						</Link>
+					</div>
+					<div className="col-12 d-flex align-items-center mb-3">
 						<InputReadOnly value={ticket.subject}>Tema</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
 						<InputReadOnly value={ticket.author.name}>Creador</InputReadOnly>
 					</div>
 					<div className="col-12 col-md-6 d-flex align-items-center mb-3">
-						<InputReadOnly value={ticket.assignedTo.name}>
+						<InputReadOnly value={ticket.assignedTo?.name || 'Sin asignar'}>
 							Asignado
 						</InputReadOnly>
 					</div>

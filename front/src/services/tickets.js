@@ -52,12 +52,19 @@ export async function fetchTicketById(ticketId, token) {
 	return res.data;
 }
 
-export async function createTicket(subject, description, token) {
+export async function createTicket(
+	projectId,
+	subject,
+	description,
+	type,
+	priority,
+	token
+) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },
 	};
 
-	const data = { subject, description };
+	const data = { projectId, subject, description, type, priority };
 
 	const res = await axios.post(ticketsUri, data, config);
 	return res.data;

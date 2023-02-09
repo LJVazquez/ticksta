@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import TicketsTable from '../components/TicketsTable';
 import ProjectUsersTable from '../components/ProjectUsersTable';
@@ -18,7 +18,7 @@ export default function ProjectDetail() {
 	const [project, setProject] = useState();
 
 	const { projectId } = useParams();
-	const { authToken } = useContext(AuthContext);
+	const { authUser, authToken } = useContext(AuthContext);
 
 	const handleError = useHandleAxiosError();
 
@@ -42,7 +42,6 @@ export default function ProjectDetail() {
 		5
 	);
 
-	//TODO
 	const addMember = async (userEmail) => {
 		try {
 			const updatedProject = await addUserToProject(
@@ -78,6 +77,16 @@ export default function ProjectDetail() {
 					<i className="bi bi-ticket-fill text-warning me-2"></i>Tickets del
 					proyecto
 				</h5>
+				{authUser.userRole === 'USER' && (
+					<div>
+						<Link
+							to={`/projects/${projectId}/new-ticket`}
+							className="btn btn-sm mb-3"
+						>
+							<i className="bi bi-plus-circle-fill"></i> Nuevo ticket
+						</Link>
+					</div>
+				)}
 				<TicketsTable tickets={paginatedTickets} />
 				<PaginationButtons />
 			</div>

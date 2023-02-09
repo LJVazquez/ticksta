@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createTicket } from '../services/tickets';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
 import SubmitButton from '../components/SubmitButton';
 import Input from '../components/Input';
@@ -22,6 +22,8 @@ export default function NewTicket() {
 	const [error, setError] = useState(null);
 	const { authToken } = useContext(AuthContext);
 
+	const { projectId } = useParams();
+
 	const {
 		register,
 		formState: { errors },
@@ -32,13 +34,14 @@ export default function NewTicket() {
 	const handleError = useHandleAxiosError();
 
 	const onSubmit = async (formData) => {
-		//TODO por ahora no se necesita type
-		delete formData.type;
 		setIsNewTicketLoading(true);
 		try {
 			const newTicket = await createTicket(
+				projectId,
 				formData.subject,
 				formData.description,
+				formData.type,
+				formData.priority,
 				authToken
 			);
 			const newTicketUri = `/ticket-detail/${newTicket.id}`;

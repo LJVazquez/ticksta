@@ -54,7 +54,7 @@ const validateTicketCreationData = (data) => {
 		description: Joi.string().min(10).max(300).required(),
 		status: Joi.string().valid(...ticketStatuses),
 		projectId: Joi.number().integer().required(),
-		assignedToId: Joi.number().integer().required(),
+		assignedToId: Joi.number().integer(),
 		type: Joi.string()
 			.valid(...ticketTypes)
 			.required(),

@@ -45,7 +45,7 @@ function App() {
 					}
 				/>
 				<Route
-					path="new-ticket"
+					path="projects/:projectId/new-ticket"
 					element={
 						<ProtectedRoute authRoles={['USER']}>
 							<NewTicket />

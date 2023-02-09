@@ -54,7 +54,11 @@ const createTicket = async (req, res) => {
 
 	try {
 		const newTicket = await prisma.ticket.create({
-			data: { ...data, authorId: authUserId },
+			data: {
+				...data,
+				projectId: parseInt(data.projectId),
+				authorId: authUserId,
+			},
 		});
 
 		res.json(newTicket);
