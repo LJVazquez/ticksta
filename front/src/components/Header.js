@@ -65,6 +65,13 @@ export default function Header() {
 								)}
 
 								<li className="nav-item">
+									<span className="nav-link">
+										<i className="bi bi-person-circle me-2"></i>
+										{authUser.name}
+									</span>
+								</li>
+
+								<li className="nav-item">
 									<Link
 										to="/projects"
 										className={`nav-link ${
@@ -85,34 +92,37 @@ export default function Header() {
 										Tickets
 									</Link>
 								</li>
+								<li className="nav-item d-lg-none">
+									<span onClick={logOut} className="nav-link text-danger">
+										Logout
+									</span>
+								</li>
 							</ul>
 						) : (
 							<ul></ul>
 						)}
 						{authUser ? (
-							<>
-								<div class="dropdown">
-									<span
-										class="dropdown-toggle text-white"
-										type="button"
-										data-bs-toggle="dropdown"
-										aria-expanded="false"
+							<div className="dropdown d-none d-lg-block">
+								<span
+									className="dropdown-toggle text-white"
+									type="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+								>
+									<i className="bi bi-person-circle me-2"></i>
+									{authUser.name}
+								</span>
+								<ul className="dropdown-menu">
+									<li
+										className="dropdown-item text-danger"
+										style={{ cursor: 'pointer' }}
 									>
-										<i className="bi bi-person-circle me-2"></i>
-										{authUser.name}
-									</span>
-									<ul class="dropdown-menu">
-										<li
-											className="dropdown-item text-danger"
-											style={{ cursor: 'pointer' }}
-										>
-											<span onClick={logOut}>
-												<i className="bi bi-door-open-fill me-2"></i>Logout
-											</span>
-										</li>
-									</ul>
-								</div>
-							</>
+										<span onClick={logOut}>
+											<i className="bi bi-door-open-fill me-2"></i>Logout
+										</span>
+									</li>
+								</ul>
+							</div>
 						) : (
 							<Link to="/login" className="btn btn-outline-success">
 								Login
