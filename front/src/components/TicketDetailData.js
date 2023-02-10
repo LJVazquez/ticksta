@@ -39,7 +39,7 @@ export default function TicketDetailData({ ticket, setTicket }) {
 					<div className="col-12 d-flex align-items-center mb-3">
 						<label className="fw-bold d-flex me-2">Proyecto:</label>
 						<Link
-							to={`/project/${ticket.project.id}`}
+							to={`/projects/${ticket.project.id}`}
 							className="text-decoration-none"
 						>
 							{ticket.project.name}

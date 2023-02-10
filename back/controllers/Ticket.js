@@ -45,7 +45,6 @@ const getTickets = async (req, res) => {
 const createTicket = async (req, res) => {
 	const data = req.body;
 	const authUserId = req.authData.userId;
-
 	const validationErrors = validateTicketCreationData(data);
 
 	if (validationErrors) {
@@ -53,6 +52,23 @@ const createTicket = async (req, res) => {
 	}
 
 	try {
+		const project = await prisma.project.findUnique({
+			where: { id: parseInt(data.projectId) },
+			include: { assignedUsers: { select: { id: true } } },
+		});
+
+		const userIsAssignedToProject = project.assignedUsers.some(
+			(assignedUser) => assignedUser.id === authUserId
+		);
+
+		if (!userIsAssignedToProject) {
+			return res.status(401).json({ error: 'Unauthorized' });
+		}
+
+		if (!project) {
+			return res.status(404).json({ error: 'Proyecto no encontrado' });
+		}
+
 		const newTicket = await prisma.ticket.create({
 			data: {
 				...data,
@@ -64,7 +80,7 @@ const createTicket = async (req, res) => {
 		res.json(newTicket);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 

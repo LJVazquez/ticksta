@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import RegisterUser from './pages/RegisterUser';
 import FourOFour from './pages/FourOFour';
+import FourOOne from './pages/FourOOne';
 import Users from './pages/Users';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
@@ -77,6 +78,7 @@ function App() {
 					}
 				/>
 				<Route path="404" element={<FourOFour />} />
+				<Route path="401" element={<FourOOne />} />
 				<Route path="*" element={<Navigate to="/404" replace={true} />} />
 			</Routes>
 		</AuthProvider>

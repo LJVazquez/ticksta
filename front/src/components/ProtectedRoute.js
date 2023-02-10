@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children, authRoles }) {
 			: true;
 
 	if (!authUser) return <Navigate to="/login" replace={true} />;
-	if (!userRoleIsAuthorized) return '404';
+	if (!userRoleIsAuthorized) return <Navigate to="/404" replace={true} />;
 
 	return children;
 }

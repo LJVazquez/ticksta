@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,11 +16,14 @@ import {
 	ticketTypesEquivalent,
 } from '../utils/formats';
 import ErrorAlert from '../components/ErrorAlert';
+import { fetchProjectById } from '../services/projects';
+import InputReadOnly from '../components/InputReadOnly';
 
 export default function NewTicket() {
 	const [isNewTicketLoading, setIsNewTicketLoading] = useState(false);
+	const [project, setProject] = useState();
 	const [error, setError] = useState(null);
-	const { authToken } = useContext(AuthContext);
+	const { authUser, authToken } = useContext(AuthContext);
 
 	const { projectId } = useParams();
 
@@ -32,6 +35,23 @@ export default function NewTicket() {
 
 	const navigate = useNavigate();
 	const handleError = useHandleAxiosError();
+
+	useEffect(() => {
+		const fetchProject = async () => {
+			try {
+				const project = await fetchProjectById(projectId, authToken);
+				setProject(project);
+			} catch (e) {
+				if (e.response?.status) {
+					navigate('/401');
+				}
+
+				handleError(e);
+				setError(e.message);
+			}
+		};
+		fetchProject();
+	}, []);
 
 	const onSubmit = async (formData) => {
 		setIsNewTicketLoading(true);
@@ -78,6 +98,11 @@ export default function NewTicket() {
 						ticket
 					</h3>
 					{error && <ErrorAlert>{error}</ErrorAlert>}
+					<div className="mb-3">
+						<InputReadOnly value={project?.name} disabled={true}>
+							Proyecto
+						</InputReadOnly>
+					</div>
 					<Input
 						name={'Tema'}
 						error={errors.subject}
