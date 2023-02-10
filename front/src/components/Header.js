@@ -90,9 +90,29 @@ export default function Header() {
 							<ul></ul>
 						)}
 						{authUser ? (
-							<button className="btn btn-outline-danger" onClick={logOut}>
-								Logout
-							</button>
+							<>
+								<div class="dropdown">
+									<span
+										class="dropdown-toggle text-white"
+										type="button"
+										data-bs-toggle="dropdown"
+										aria-expanded="false"
+									>
+										<i className="bi bi-person-circle me-2"></i>
+										{authUser.name}
+									</span>
+									<ul class="dropdown-menu">
+										<li
+											className="dropdown-item text-danger"
+											style={{ cursor: 'pointer' }}
+										>
+											<span onClick={logOut}>
+												<i className="bi bi-door-open-fill me-2"></i>Logout
+											</span>
+										</li>
+									</ul>
+								</div>
+							</>
 						) : (
 							<Link to="/login" className="btn btn-outline-success">
 								Login
