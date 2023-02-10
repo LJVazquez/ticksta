@@ -15,7 +15,7 @@ export default function TicketDetail() {
 	const [ticketMessages, setTicketMessages] = useState(null);
 
 	const { ticketId } = useParams();
-	const { authToken } = useContext(AuthContext);
+	const { authUser, authToken } = useContext(AuthContext);
 
 	const handleError = useHandleAxiosError();
 
@@ -37,12 +37,19 @@ export default function TicketDetail() {
 		5
 	);
 
+	const canCommentOnTicket =
+		authUser.role === 'MANAGER' ||
+		authUser.role === 'ADMIN' ||
+		ticket?.assignedToId === authUser.userId ||
+		ticket?.authorId === authUser.userId;
+
+	console.log(`canCommentOnTicket`, canCommentOnTicket);
 	return (
 		<Layout>
 			<TicketDetailData ticket={ticket} setTicket={setTicket} />
 			<TicketMessages messages={paginatedMessages} />
 			<PaginationButtons />
-			{ticket && ticket?.status !== 'CLOSED' && (
+			{ticket && ticket?.status !== 'CLOSED' && canCommentOnTicket && (
 				<NewMessageForm setTicketMessages={setTicketMessages} />
 			)}
 		</Layout>
