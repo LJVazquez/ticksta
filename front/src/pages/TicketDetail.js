@@ -37,19 +37,18 @@ export default function TicketDetail() {
 		5
 	);
 
-	const canCommentOnTicket =
-		authUser.role === 'MANAGER' ||
-		authUser.role === 'ADMIN' ||
+	const hasCommentPermissions =
+		authUser.userRole === 'MANAGER' ||
+		authUser.userRole === 'ADMIN' ||
 		ticket?.assignedToId === authUser.userId ||
 		ticket?.authorId === authUser.userId;
 
-	console.log(`canCommentOnTicket`, canCommentOnTicket);
 	return (
 		<Layout>
 			<TicketDetailData ticket={ticket} setTicket={setTicket} />
 			<TicketMessages messages={paginatedMessages} />
 			<PaginationButtons />
-			{ticket && ticket?.status !== 'CLOSED' && canCommentOnTicket && (
+			{ticket && ticket?.status !== 'CLOSED' && hasCommentPermissions && (
 				<NewMessageForm setTicketMessages={setTicketMessages} />
 			)}
 		</Layout>

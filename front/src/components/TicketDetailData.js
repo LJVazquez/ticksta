@@ -15,6 +15,11 @@ import TextAreaReadOnly from './TextAreaReadOnly';
 export default function TicketDetailData({ ticket, setTicket }) {
 	const { authUser } = useContext(AuthContext);
 
+	const hasChangingStatusPermissions =
+		authUser.userRole === 'MANAGER' ||
+		authUser.userRole === 'ADMIN' ||
+		(authUser.userRole === 'DEV' && ticket?.assignedToId === authUser.userId);
+
 	if (ticket) {
 		const badgeColor =
 			ticket && `bg-${ticketStatusBackgroundColors[ticket['status']]}`;
@@ -62,7 +67,7 @@ export default function TicketDetailData({ ticket, setTicket }) {
 						</InputReadOnly>
 					</div>
 					<div className="row mt-3">
-						{authUser.userRole !== 'USER' && (
+						{hasChangingStatusPermissions && (
 							<div className="col-auto mb-3">
 								<p className="fw-bold mb-2">Actualizar estado</p>
 								<ChangeTicketStatusForm ticket={ticket} setTicket={setTicket} />
