@@ -6,6 +6,14 @@ const {
 	validateProjectUpdateData,
 } = require('../utils/schemaValidators.js');
 
+const fieldsToInclude = {
+	tickets: { include: { author: { select: { name: true } } } },
+	assignedUsers: {
+		select: { id: true, name: true, role: true, email: true },
+	},
+	author: { select: { name: true } },
+};
+
 const getProjects = async (req, res) => {
 	const { userId, userRole } = req.authData;
 
@@ -108,14 +116,6 @@ const userHasReadPermission = (user, project) => {
 	return userHasAllowedRole || userIsAssignedToProject;
 };
 
-const fieldsToInclude = {
-	tickets: { include: { author: { select: { name: true } } } },
-	assignedUsers: {
-		select: { id: true, name: true, role: true, email: true },
-	},
-	author: { select: { name: true } },
-};
-
 const getProjectById = async (req, res) => {
 	const projectId = parseInt(req.params.id);
 	authUserData = req.authData;
@@ -183,6 +183,7 @@ const updateProject = async (req, res) => {
 	try {
 		const updatedProject = await prisma.project.update({
 			where: { id: projectId },
+			include: fieldsToInclude,
 			data: data,
 		});
 

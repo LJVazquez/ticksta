@@ -65,6 +65,19 @@ export async function createProject(name, description, token) {
 	return res.data;
 }
 
+export async function updateProject(projectId, name, description, token) {
+	const config = {
+		headers: { Authorization: 'Bearer ' + token },
+	};
+
+	const data = { name, description };
+
+	const uri = `${projectsUri}/${projectId}`;
+
+	const res = await axios.patch(uri, data, config);
+	return res.data;
+}
+
 export async function addUserToProject(projectId, userEmail, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },

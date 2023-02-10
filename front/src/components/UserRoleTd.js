@@ -13,7 +13,7 @@ const smallAnimationSettings = {
 export default function UserRoleTd({ user, setUsers }) {
 	const [isEditModeOn, setIsEditModeOn] = useState(false);
 	const [updateRoleError, setUpdateRoleError] = useState(false);
-	const [roleChanged, setRoleChanged] = useState(false);
+	const [roleChangeSuccess, setRoleChangeSuccess] = useState(false);
 	const [userRoleSelect, setUserRoleSelect] = useState(user.role);
 	const { authToken } = useContext(AuthContext);
 
@@ -37,10 +37,10 @@ export default function UserRoleTd({ user, setUsers }) {
 			});
 
 			setIsEditModeOn(false);
-			setRoleChanged(true);
+			setRoleChangeSuccess(true);
 
 			setTimeout(() => {
-				setRoleChanged(false);
+				setRoleChangeSuccess(false);
 			}, 4000);
 		} catch (e) {
 			handleError(e);
@@ -59,7 +59,7 @@ export default function UserRoleTd({ user, setUsers }) {
 					<i className="bi bi-exclamation-triangle-fill"></i> Reintentar...
 				</motion.span>
 			);
-		} else if (roleChanged) {
+		} else if (roleChangeSuccess) {
 			return (
 				<motion.small className="ms-2 text-success" {...smallAnimationSettings}>
 					<i className="bi bi-check-lg"></i>
