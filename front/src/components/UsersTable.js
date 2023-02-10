@@ -37,10 +37,10 @@ const getUsersRows = (users, setUsers) => {
 			return (
 				<motion.tr initial="false" key={user.id} {...trAnimationSettings}>
 					<th scope="row">{user.id}</th>
-					<td>
+					<td className="text-nowrap">
 						<motion.div {...linkAnimationSettings}>{user.name}</motion.div>
 					</td>
-					<td>{user.email}</td>
+					<td className="text-nowrap">{user.email}</td>
 					<UserRoleTd user={user} setUsers={setUsers} />
 				</motion.tr>
 			);

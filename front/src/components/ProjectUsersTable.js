@@ -26,10 +26,10 @@ const getUsersRows = (users, removeMember) => {
 		users.map((user) => {
 			return (
 				<tr key={user.id + user.name}>
-					<td>{user.name}</td>
-					<td>{user.email}</td>
-					<td>011-2232-2123</td>
-					<td>{UserRoleEquivalent[user.role]}</td>
+					<td className="text-nowrap">{user.name}</td>
+					<td className="text-nowrap">{user.email}</td>
+					<td className="text-nowrap">011-2232-2123</td>
+					<td className="text-nowrap">{UserRoleEquivalent[user.role]}</td>
 					<RemoveMemberTd
 						user={user}
 						removeMember={() => removeMember(user.email)}
@@ -69,26 +69,27 @@ export default function ProjectUsersTable({ users, addMember, removeMember }) {
 				<h5>
 					<i className="bi bi-person-fill text-info"></i> Equipo
 				</h5>
-				{authUser.userRole === 'MANAGER' && !isAddMemberDisplayed && (
-					<div>
-						<AnimatePresence>
-							{userAssigned && (
-								<motion.small
-									className="text-success"
-									{...smallAnimationSettings}
-								>
-									<i className="bi bi-check me-1"></i>Miembro asignado
-								</motion.small>
-							)}
-						</AnimatePresence>
-						<button
-							className="btn btn-sm mb-3 mb-md-0"
-							onClick={() => setIsAddMemberDisplayed(true)}
-						>
-							<i className="bi bi-plus-circle-fill"></i> Agregar usuario
-						</button>
-					</div>
-				)}
+				{(authUser.userRole === 'MANAGER' || authUser.userRole === 'ADMIN') &&
+					!isAddMemberDisplayed && (
+						<div>
+							<AnimatePresence>
+								{userAssigned && (
+									<motion.small
+										className="text-success"
+										{...smallAnimationSettings}
+									>
+										<i className="bi bi-check me-1"></i>Miembro asignado
+									</motion.small>
+								)}
+							</AnimatePresence>
+							<button
+								className="btn btn-sm mb-3 mb-md-0"
+								onClick={() => setIsAddMemberDisplayed(true)}
+							>
+								<i className="bi bi-plus-circle-fill"></i> Agregar usuario
+							</button>
+						</div>
+					)}
 			</div>
 
 			{isAddMemberDisplayed && (

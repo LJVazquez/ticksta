@@ -44,7 +44,7 @@ const getProjectRows = (projects) => {
 			return (
 				<motion.tr initial="false" key={project.id} {...trAnimationSettings}>
 					<th scope="row">{project.id}</th>
-					<td>
+					<td className="text-nowrap">
 						<Link
 							to={`/projects/${project.id}`}
 							className="text-decoration-none"

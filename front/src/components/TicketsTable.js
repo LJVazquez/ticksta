@@ -49,7 +49,7 @@ const getTicketRows = (tickets) => {
 					{...trAnimationSettings}
 				>
 					<th scope="row">{ticket.id}</th>
-					<td>
+					<td className="text-nowrap">
 						<Link
 							to={`/ticket-detail/${ticket.id}`}
 							className="text-decoration-none"
@@ -65,8 +65,10 @@ const getTicketRows = (tickets) => {
 							{ticketStatusEquivalent[ticket.status]}
 						</span>
 					</td>
-					<td>{ticket.author.name}</td>
-					<td>{ticket.assignedTo?.name || 'Sin asignar'}</td>
+					<td className="text-nowrap">{ticket.author.name}</td>
+					<td className="text-nowrap">
+						{ticket.assignedTo?.name || 'Sin asignar'}
+					</td>
 					<td>{createdAt}</td>
 				</motion.tr>
 			);

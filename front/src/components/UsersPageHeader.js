@@ -1,27 +1,13 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-
 export default function UsersPageHeader(props) {
 	const { searchValue, setSearchValue, selectValue, setSelectValue } = props;
 
-	const { authUser } = useContext(AuthContext);
-
 	return (
-		<div className="row mb-5 justify-content-between">
-			<h1 className="fw-bold mx-2">
-				<i className="bi bi-person-fill text-info"></i> Usuarios
-			</h1>
-			<motion.div layoutId="newTicketForm" className="col-auto">
-				{authUser.userRole === 'w' && (
-					<div>
-						<Link to="/new-ticket" className="btn btn-sm mb-3 mb-md-0">
-							<i className="bi bi-plus-circle-fill"></i> Nuevo ticket
-						</Link>
-					</div>
-				)}
-			</motion.div>
+		<div className="row mb-5 justify-content-between align-items-center">
+			<div className="col-12 col-md-auto text-center text-md-start mb-3 mb-md-0">
+				<h1 className="fw-bold mx-2">
+					<i className="bi bi-person-fill text-info"></i> Usuarios
+				</h1>
+			</div>
 			<div className="col-12 col-md-auto row mx-0">
 				<div className="col-12 col-md-auto">
 					<div className="input-group input-group-sm mb-3 mb-md-0">

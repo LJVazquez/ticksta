@@ -11,7 +11,7 @@ const smallAnimationSettings = {
 };
 
 export default function UserRoleTd({ user, setUsers }) {
-	const [isEditModeOn, setIsEditModeOn] = useState(false);
+	const [editMode, setEditMode] = useState(false);
 	const [updateRoleError, setUpdateRoleError] = useState(false);
 	const [roleChangeSuccess, setRoleChangeSuccess] = useState(false);
 	const [userRoleSelect, setUserRoleSelect] = useState(user.role);
@@ -36,7 +36,7 @@ export default function UserRoleTd({ user, setUsers }) {
 				return prevUsersUpdated;
 			});
 
-			setIsEditModeOn(false);
+			setEditMode(false);
 			setRoleChangeSuccess(true);
 
 			setTimeout(() => {
@@ -45,7 +45,7 @@ export default function UserRoleTd({ user, setUsers }) {
 		} catch (e) {
 			handleError(e);
 
-			setIsEditModeOn(false);
+			setEditMode(false);
 			setUpdateRoleError(true);
 
 			setTimeout(() => setUpdateRoleError(false), 4000);
@@ -68,15 +68,15 @@ export default function UserRoleTd({ user, setUsers }) {
 		}
 
 		return (
-			<button className="btn" onClick={() => setIsEditModeOn(true)}>
+			<button className="btn py-0" onClick={() => setEditMode(true)}>
 				<i className="bi bi-pencil-fill text-warning"></i>
 			</button>
 		);
 	};
 
-	if (isEditModeOn) {
+	if (editMode) {
 		return (
-			<td>
+			<td className="text-nowrap">
 				<form onSubmit={handleSubmit} className="d-flex align-items-center">
 					<select
 						className="border-light p-1 rounded-3"
@@ -96,7 +96,7 @@ export default function UserRoleTd({ user, setUsers }) {
 		);
 	} else {
 		return (
-			<td className="d-flex align-items-center">
+			<td className="d-flex">
 				{UserRoleEquivalent[user.role]}
 				<AnimatePresence>{getUpdateRoleButton()}</AnimatePresence>
 			</td>
