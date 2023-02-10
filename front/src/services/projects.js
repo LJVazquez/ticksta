@@ -54,13 +54,12 @@ export async function fetchProjectDevs(projectId, token) {
 	return res.data;
 }
 
-//TODO
-export async function createProject(subject, description, token) {
+export async function createProject(name, description, token) {
 	const config = {
 		headers: { Authorization: 'Bearer ' + token },
 	};
 
-	const data = { subject, description };
+	const data = { name, description };
 
 	const res = await axios.post(projectsUri, data, config);
 	return res.data;

@@ -27,6 +27,35 @@ export const newTicketConstraints = {
 	},
 };
 
+export const newProjectConstraints = {
+	name: {
+		required: 'Por favor ingrese un tema',
+		minLength: {
+			value: 6,
+			message: 'Por favor ingresé un nombre, minimo 6 caracteres',
+		},
+		maxLength: {
+			value: 100,
+			message: 'Maximo 100 caracteres',
+		},
+	},
+	description: {
+		required: 'Por favor escriba una descripcion',
+		minLength: {
+			value: 10,
+			message:
+				'Por favor escriba una descripcion detallada, minimo 10 caracteres',
+		},
+		maxLength: {
+			value: 300,
+			message: 'Maximo 300 caracteres',
+		},
+	},
+	description: {
+		required: 'Por favor seleccione tipo',
+	},
+};
+
 export const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const loginInputConstraints = {
 	email: {

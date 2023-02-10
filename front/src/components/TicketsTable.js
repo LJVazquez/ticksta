@@ -73,7 +73,7 @@ const getTicketRows = (tickets) => {
 		})
 	) : (
 		<tr>
-			<td colSpan={4} className="text-center">
+			<td colSpan={6} className="text-center">
 				No se encontraron tickets
 			</td>
 		</tr>

@@ -86,7 +86,6 @@ const validateProjectCreationData = (data) => {
 	const ticketSchema = Joi.object({
 		name: Joi.string().min(6).max(100).required(),
 		description: Joi.string().min(10).max(300).required(),
-		authorId: Joi.number().integer().required(),
 	});
 
 	return validateSchema(ticketSchema, data);

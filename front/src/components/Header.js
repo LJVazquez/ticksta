@@ -64,7 +64,7 @@ export default function Header() {
 									</>
 								)}
 
-								<li className="nav-item">
+								<li className="nav-item d-lg-none">
 									<span className="nav-link">
 										<i className="bi bi-person-circle me-2"></i>
 										{authUser.name}

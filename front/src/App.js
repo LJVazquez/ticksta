@@ -1,6 +1,7 @@
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import NewTicket from './pages/NewTicket';
+import NewProject from './pages/NewProject';
 import Tickets from './pages/Tickets';
 import TicketDetail from './pages/TicketDetail';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -50,6 +51,14 @@ function App() {
 					element={
 						<ProtectedRoute authRoles={['USER']}>
 							<NewTicket />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="new-project"
+					element={
+						<ProtectedRoute authRoles={['MANAGER']}>
+							<NewProject />
 						</ProtectedRoute>
 					}
 				/>
