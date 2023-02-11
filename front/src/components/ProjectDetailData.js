@@ -53,6 +53,7 @@ export default function ProjectDetailData({ project, setProject }) {
 			setProject(updatedProject);
 			setIsUpdateProjectLoading(false);
 			setUpdateSuccess(true);
+			setEditMode(false);
 
 			setTimeout(() => {
 				setUpdateSuccess(false);
