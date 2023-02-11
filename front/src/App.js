@@ -1,5 +1,4 @@
 import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
 import NewTicket from './pages/NewTicket';
 import NewProject from './pages/NewProject';
 import Tickets from './pages/Tickets';
@@ -22,14 +21,6 @@ function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<RegisterUser />} />
-				<Route
-					path="/dashboard"
-					element={
-						<ProtectedRoute authRoles={['ADMIN']}>
-							<Dashboard />
-						</ProtectedRoute>
-					}
-				/>
 				<Route
 					path="tickets"
 					element={

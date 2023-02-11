@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function TextArea({ name, rhfData, error, maxLength = null }) {
 	return (
 		<div className="mb-3 mx-1">

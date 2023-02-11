@@ -1,12 +1,5 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-
 export default function TicketsPageHeader(props) {
 	const { searchValue, setSearchValue, selectValue, setSelectValue } = props;
-
-	const { authUser } = useContext(AuthContext);
 
 	return (
 		<div className="row mb-5 justify-content-between align-items-center">

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Input({ name, type = 'text', rhfData, error }) {
 	return (
 		<div className="mb-3">

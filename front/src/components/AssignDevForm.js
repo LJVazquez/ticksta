@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import { assignTicketDev, updateTicketStatus } from '../services/tickets';
+import { assignTicketDev } from '../services/tickets';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchProjectDevs } from '../services/projects';
 

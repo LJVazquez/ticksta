@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function SubmitButton({ name, isLoading, loadingMessage }) {
 	return isLoading ? (
 		<button className="btn btn-primary" disabled>

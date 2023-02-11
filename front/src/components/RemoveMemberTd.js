@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export default function TeamMemberTd({ user, removeMember }) {
+export default function TeamMemberTd({ removeMember }) {
 	const [isConfirmDeleteOn, setIsConfirmDeleteOn] = useState(false);
 
 	return (

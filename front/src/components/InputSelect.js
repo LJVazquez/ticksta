@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function InputSelect({ name, options, rhfData, error }) {
 	return (
 		<div className="mb-3">

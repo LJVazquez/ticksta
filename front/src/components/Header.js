@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import logo from '../img/logo.png';
@@ -39,31 +39,6 @@ export default function Header() {
 					>
 						{authUser ? (
 							<ul className="navbar-nav">
-								{authUser?.userRole === 'ADMIN' && (
-									<>
-										<li className="nav-item">
-											<Link
-												to="/dashboard"
-												className={`nav-link ${
-													locationPath.includes('dashboard') && 'active'
-												}`}
-											>
-												Dashboard
-											</Link>
-										</li>
-										<li className="nav-item">
-											<Link
-												to="/users"
-												className={`nav-link ${
-													locationPath.includes('users') && 'active'
-												}`}
-											>
-												Usuarios
-											</Link>
-										</li>
-									</>
-								)}
-
 								<li className="nav-item d-lg-none">
 									<span className="nav-link">
 										<i className="bi bi-person-circle me-2"></i>
@@ -92,6 +67,21 @@ export default function Header() {
 										Tickets
 									</Link>
 								</li>
+
+								{authUser?.userRole === 'ADMIN' && (
+									<>
+										<li className="nav-item">
+											<Link
+												to="/users"
+												className={`nav-link ${
+													locationPath.includes('users') && 'active'
+												}`}
+											>
+												Usuarios
+											</Link>
+										</li>
+									</>
+								)}
 								<li className="nav-item d-lg-none">
 									<span onClick={logOut} className="nav-link text-danger">
 										Logout

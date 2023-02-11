@@ -27,9 +27,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (authUser !== null) {
-			authUser.userRole === 'ADMIN'
-				? navigate('/dashboard')
-				: navigate('/projects');
+			navigate('/projects');
 		}
 	}, [authUser]);
 

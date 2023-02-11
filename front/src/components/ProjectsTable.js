@@ -1,9 +1,5 @@
 import { Link } from 'react-router-dom';
-import {
-	formatDate,
-	ticketStatusEquivalent,
-	ticketStatusBackgroundColors,
-} from '../utils/formats';
+import { formatDate } from '../utils/formats';
 
 import { motion, AnimatePresence } from 'framer-motion';
 

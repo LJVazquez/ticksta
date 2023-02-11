@@ -1,4 +1,3 @@
-import { UserRoleEquivalent } from '../utils/formats';
 import { motion, AnimatePresence } from 'framer-motion';
 import UserRoleTd from './UserRoleTd';
 
