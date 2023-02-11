@@ -9,11 +9,20 @@ export default function ProjectsPageHeader(props) {
 
 	return (
 		<div className="row mb-4 mb-md-5 justify-content-between">
-			<div className="col col-md-12">
-				<h1 className="fw-bold">
-					<i className="bi bi-kanban-fill text-danger"></i> Proyectos
-				</h1>
-			</div>
+			{authUser.userRole === 'MANAGER' ? (
+				<div className="col col-md-12">
+					<h1 className="fw-bold">
+						<i className="bi bi-kanban-fill text-danger"></i> Proyectos
+					</h1>
+				</div>
+			) : (
+				<div className="col-12 col-md-auto text-center text-md-start mb-3 mb-md-0">
+					<h1 className="fw-bold">
+						<i className="bi bi-kanban-fill text-danger"></i> Proyectos
+					</h1>
+				</div>
+			)}
+
 			<div className="col-auto mb-2 mb-md-0">
 				{authUser.userRole === 'MANAGER' && (
 					<div>
@@ -23,7 +32,7 @@ export default function ProjectsPageHeader(props) {
 					</div>
 				)}
 			</div>
-			<div className="col-12 col-md-auto row">
+			<div className="col-12 col-md-auto">
 				<div className="input-group input-group-sm mb-md-0">
 					<span className="input-group-text bg-dark-subtle border-0 text-white">
 						<i className="bi bi-search"></i>
