@@ -18,7 +18,7 @@ export default function ProjectDetailData({ project, setProject }) {
 	const [error, setError] = useState(null);
 	const [updateSuccess, setUpdateSuccess] = useState(false);
 	const [isUpdateProjectLoading, setIsUpdateProjectLoading] = useState(false);
-	const { authToken } = useContext(AuthContext);
+	const { authUser, authToken } = useContext(AuthContext);
 
 	const {
 		register,
@@ -121,12 +121,15 @@ export default function ProjectDetailData({ project, setProject }) {
 						<i className="bi bi-kanban-fill text-danger me-2"></i>Proyecto #
 						{project.id}
 					</h3>
-					<button
-						className="btn btn-sm btn-outline-danger"
-						onClick={() => setEditMode((prevState) => !prevState)}
-					>
-						<i className="bi bi-pencil-square"></i> Editar
-					</button>
+					{(authUser.userRole === 'MANAGER' ||
+						authUser.userRole === 'ADMIN') && (
+						<button
+							className="btn btn-sm btn-outline-danger"
+							onClick={() => setEditMode((prevState) => !prevState)}
+						>
+							<i className="bi bi-pencil-square"></i> Editar
+						</button>
+					)}
 				</div>
 				{updateSuccess && (
 					<div className="container">
