@@ -19,7 +19,7 @@ const validateUserCreationData = (data) => {
 		name: Joi.string().min(6).max(30).required(),
 		email: Joi.string().email().required(),
 		password: Joi.string().min(6).max(30).required(),
-		role: Joi.string().valid('USER', 'ADMIN'),
+		role: Joi.string().valid('USER', 'ADMIN', 'MANAGER', 'DEV'),
 	});
 
 	return validateSchema(userSchema, data);
@@ -29,7 +29,7 @@ const validateUserUpdateData = (data) => {
 	const userSchema = Joi.object({
 		name: Joi.string().min(6).max(30),
 		email: Joi.string().email(),
-		role: Joi.string().valid('USER', 'ADMIN'),
+		role: Joi.string().valid('USER', 'ADMIN', 'MANAGER', 'DEV'),
 	});
 
 	return validateSchema(userSchema, data);

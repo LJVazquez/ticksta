@@ -19,6 +19,6 @@ router.get(
 	getLatestTickets
 );
 router.post('/', authorizeRole('USER'), createTicket);
-router.patch('/:id', authorizeRole(['ADMIN', 'DEV']), updateTicket);
+router.patch('/:id', authorizeRole(['ADMIN', 'DEV', 'MANAGER']), updateTicket);
 
 module.exports = router;
