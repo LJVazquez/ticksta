@@ -27,7 +27,8 @@
 
 Ticksta es una single-page app (SPA) desarrollada como proyecto de juguete para demostrar conocimientos en el ecosistema de React/Node.js, tanto del lado del coding como del diseño de UI.
 
-Consta de un CRUD para la gestión de tickets que cuenta con autorización y autenticación, en el que los usuarios pueden crear dichos tickets y comunicarse con administradores mediante mensajes en los mismos.
+Consta de un CRUD para la gestión de proyectos y tickets que cuenta con autorización y autenticación.En el mismo pueden crearse proyectos y asignarseles usuarios, los cuales pueden crear tickets y
+comunicarse con los desarrolladores asignados al mismo mediante mensajes.
 
 ### 👾 Tecnologias
 
@@ -87,13 +88,31 @@ docker rmi ljvazquez/ticksta mysql
 
 ## 💻 Uso
 
-Se puede registrar en la app o utilizar una cuenta de prueba de administrador o usuario.
+- Para comenzar a utilizar la app, puede registrarse un nuevo usuario o seleccionar una cuenta de prueba.
 
-![login-screenshot]
+![login]
 
-Los usuarios pueden crear tickets y mensajes en sus tickets.
-Los administradores pueden ver todos los tickets y cambiar su estado.
-fotos
+- Los MANAGER pueden crear y editar proyectos, asi como asignarles DEVS y USUARIOS.
+
+![manager-crear-editar-asignar-proyecto]
+
+![manager-asignar-dev]
+
+- Una vez asignados a un proyecto, los USUARIOS pueden crear tickets y responderlos.
+
+![user-crear-responder-ticket]
+
+- Los DEV asignados a un ticket pueden responderlos y cambiar su estado. Una vez cerrado,
+  el ticket ya no recibirá mensajes nuevos.
+
+![dev-responder-cambiar-estado-ticket]
+
+![dev-responder-cambiar-estado-ticket-2]
+
+- Los ADMIN pueden ver todos los recursos, y adicionalmente asignar roles a las cuentas
+  registradas.
+
+![admin-cambiar-roles]
 
 ## 🎓 Sobre mi
 
@@ -105,6 +124,13 @@ Poseo experiencia tanto en desarrollo como en testing.
 
 [product-screenshot]: readme_assets/tickets_screenshot.png
 [login-screenshot]: readme_assets/login.png
+[admin-cambiar-roles]: readme_assets/admin-cambiar-roles.gif
+[dev-responder-cambiar-estado-ticket]: readme_assets/dev-responder-cambiar-estado-ticket.gif
+[dev-responder-cambiar-estado-ticket-2]: readme_assets/dev-responder-cambiar-estado-ticket-2.gif
+[login]: readme_assets/login.gif
+[manager-asignar-dev]: readme_assets/manager-asignar-dev.gif
+[manager-crear-editar-asignar-proyecto]: readme_assets/manager-crear-editar-asignar-proyecto.gif
+[user-crear-responder-ticket]: readme_assets/user-crear-responder-ticket.gif
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
 [bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
