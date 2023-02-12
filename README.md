@@ -63,7 +63,8 @@ Es necesario tener instalado:
 ### 🏃 Ejecucion
 
 Descargar el archivo [docker-compose.yml](docker-compose.yml) que se encuentra en la
-raiz del repositorio.
+raiz del repositorio. En caso de haber clonado el repositorio, el archivo ya se
+encuentra en el directorio donde se clonó.
 
 Ejecutar la terminal en la misma carpeta donde se encuentra el descargado y correr el siguiente comando:
 
