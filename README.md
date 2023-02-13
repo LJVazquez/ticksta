@@ -93,24 +93,24 @@ docker rmi ljvazquez/ticksta mysql
 
 ![login]
 
-- Los MANAGER pueden crear y editar proyectos, asi como asignarles DEVS y USUARIOS.
+- Los `manager` pueden crear y editar proyectos, asi como asignarles `devs` y `usuarios`.
 
 ![manager-crear-editar-asignar-proyecto]
 
 ![manager-asignar-dev]
 
-- Una vez asignados a un proyecto, los USUARIOS pueden crear tickets y responderlos.
+- Una vez asignados a un proyecto, los `usuarios` pueden crear tickets y responderlos.
 
 ![user-crear-responder-ticket]
 
-- Los DEV asignados a un ticket pueden responderlos y cambiar su estado. Una vez cerrado,
+- Los `dev` asignados a un ticket pueden responderlos y cambiar su estado. Una vez cerrado,
   el ticket ya no recibirá mensajes nuevos.
 
 ![dev-responder-cambiar-estado-ticket]
 
 ![dev-responder-cambiar-estado-ticket-2]
 
-- Los ADMIN pueden ver todos los recursos, y adicionalmente asignar roles a las cuentas
+- Los `admin` pueden ver todos los recursos, y adicionalmente asignar roles a las cuentas
   registradas.
 
 ![admin-cambiar-roles]
@@ -123,7 +123,7 @@ Poseo experiencia tanto en desarrollo como en testing.
 - [Linkedin](https://www.linkedin.com/in/lvazquez-dev/)
 - [Email](mailto:ljvazquez00@gmail.com)
 
-[product-screenshot]: readme_assets/tickets_screenshot.png
+[product-screenshot]: readme_assets/ticksta-app.png
 [login-screenshot]: readme_assets/login.png
 [admin-cambiar-roles]: readme_assets/admin-cambiar-roles.gif
 [dev-responder-cambiar-estado-ticket]: readme_assets/dev-responder-cambiar-estado-ticket.gif
