@@ -6,7 +6,7 @@
 	"scripts": {
 		"deploy": "npx prisma db push",
 		"seed": "npx prisma db seed",
-		"start": "nodemon app.js",
+		"start": "nodemon index.js",
 		"prodStart": "npm run deploy && npm run seed && npm start"
 	},
 	"prisma": {
@@ -28,6 +28,8 @@
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
-		"prisma": "^4.8.1"
+		"jest": "^29.4.3",
+		"prisma": "^4.8.1",
+		"supertest": "^6.3.3"
 	}
 }

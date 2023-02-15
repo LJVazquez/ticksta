@@ -4,7 +4,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const app = express();
-const PORT = 3001;
 const apiRoute = '/api/v1';
 
 const userRouter = require('./routes/User.js');
@@ -33,6 +32,4 @@ app.use('*', (req, res) => {
 	res.status(404).send('ruta invalida');
 });
 
-app.listen(PORT, () => {
-	console.log(`Server started on port ${PORT}`);
-});
+module.exports = app;
