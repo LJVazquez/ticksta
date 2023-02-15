@@ -27,6 +27,7 @@ front/.vscode
 #back
 back/node_modules
 back/.env
+back/build
 
 #docker
-docker-compose-local.yml
+docker-compose.yml.local
