@@ -54,16 +54,20 @@ const createUser = async (req, res) => {
 		});
 
 		newUser = removeUserPrivateData(newUser);
-		res.json(newUser);
+		res.status(201).json(newUser);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
 const updateUser = async (req, res) => {
 	const data = req.body;
 	const userId = parseInt(req.params.id);
+
+	if (isNaN(userId)) {
+		return res.status(400).json({ error: 'Error en el id' });
+	}
 
 	const validationErrors = validateUserUpdateData(data);
 
@@ -81,7 +85,7 @@ const updateUser = async (req, res) => {
 		res.json(updatedUser);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
@@ -103,7 +107,7 @@ const getUserById = async (req, res) => {
 		res.json(user);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
@@ -111,20 +115,22 @@ const getUserByEmail = async (req, res) => {
 	const userEmail = req.params.userEmail;
 	try {
 		let user = await prisma.user.findUnique({ where: { email: userEmail } });
+
+		if (!user) {
+			return res.status(404).json({ error: 'Usuario no encontrado' });
+		}
+
 		user = removeUserPrivateData(user);
 
 		res.json(user);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
 const removeUserPrivateData = (userData) => {
 	delete userData.password;
-	delete userData.jwtRefresh;
-	delete userData.jwtRefreshDate;
-	delete userData.resetPasswordCode;
 
 	return userData;
 };

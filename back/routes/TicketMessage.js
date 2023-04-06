@@ -6,7 +6,8 @@ const {
 } = require('../controllers/TicketMessage');
 const { authorizeRole } = require('../middleware/authMiddleware');
 
-router.get('/latest/:amount', authorizeRole('ADMIN'), getLatestTicketMessages);
 router.post('/', createTicketMessage);
+
+router.get('/latest/:amount', authorizeRole('ADMIN'), getLatestTicketMessages);
 
 module.exports = router;

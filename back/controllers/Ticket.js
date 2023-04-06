@@ -57,16 +57,16 @@ const createTicket = async (req, res) => {
 			include: { assignedUsers: { select: { id: true } } },
 		});
 
+		if (!project) {
+			return res.status(404).json({ error: 'Proyecto no encontrado' });
+		}
+
 		const userIsAssignedToProject = project.assignedUsers.some(
 			(assignedUser) => assignedUser.id === authUserId
 		);
 
 		if (!userIsAssignedToProject) {
 			return res.status(401).json({ error: 'Unauthorized' });
-		}
-
-		if (!project) {
-			return res.status(404).json({ error: 'Proyecto no encontrado' });
 		}
 
 		const newTicket = await prisma.ticket.create({
@@ -77,7 +77,7 @@ const createTicket = async (req, res) => {
 			},
 		});
 
-		res.json(newTicket);
+		res.status(201).json(newTicket);
 	} catch (e) {
 		console.error(e);
 		res.status(500).json({ error: e.message });
@@ -143,7 +143,7 @@ const getLatestTickets = async (req, res) => {
 	const ticketsAmount = parseInt(req.params.amount);
 	authUserData = req.authData;
 
-	if (isNaN(ticketsAmount)) {
+	if (isNaN(ticketsAmount) || ticketsAmount < 1) {
 		return res.status(400).json({ error: 'Bad request' });
 	}
 
@@ -156,7 +156,7 @@ const getLatestTickets = async (req, res) => {
 		res.json(tickets);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
@@ -169,6 +169,10 @@ const updateTicket = async (req, res) => {
 		data,
 		authUserData.userRole
 	);
+
+	if (isNaN(ticketId)) {
+		return res.status(400).json({ error: 'Bad request' });
+	}
 
 	if (validationErrors) {
 		return res.status(409).json({ error: validationErrors });
@@ -213,28 +217,6 @@ const updateTicket = async (req, res) => {
 		res.json(updatedTicket);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
-	}
-};
-
-const getTicketStats = async (req, res) => {
-	try {
-		const tickets = await prisma.ticket.findMany({ select: { status: true } });
-
-		const ticketStatuses = tickets.map((ticket) => ticket.status);
-		const statusCount = {};
-
-		ticketStatuses.forEach((status) => {
-			if (statusCount.hasOwnProperty(status)) {
-				statusCount[status] = statusCount[status] + 1;
-			} else {
-				statusCount[status] = 1;
-			}
-		});
-
-		res.json(statusCount);
-	} catch (e) {
-		console.error(e);
 		res.status(500).json({ error: e.message });
 	}
 };
@@ -245,5 +227,5 @@ module.exports = {
 	createTicket,
 	updateTicket,
 	getLatestTickets,
-	getTicketStats,
+	userHasReadPermission,
 };

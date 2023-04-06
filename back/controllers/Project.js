@@ -97,7 +97,7 @@ const createProject = async (req, res) => {
 			data: { ...data, authorId: authUserId },
 		});
 
-		res.json(newProject);
+		res.status(201).json(newProject);
 	} catch (e) {
 		console.error(e);
 		res.status(500).json({ error: e.message });
@@ -149,7 +149,7 @@ const getLatestProjects = async (req, res) => {
 	const projectsAmount = parseInt(req.params.amount);
 	authUserData = req.authData;
 
-	if (isNaN(projectsAmount)) {
+	if (isNaN(projectsAmount) || projectsAmount < 1) {
 		return res.status(400).json({ error: 'Bad request' });
 	}
 
@@ -190,7 +190,13 @@ const updateProject = async (req, res) => {
 		res.json(updatedProject);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.message });
+
+		if (e.code === 'P2025') {
+			// * P2025: prisma error code for missing required record
+			return res.status(404).json({ error: 'Proyecto no encontrado' });
+		} else {
+			res.status(500).json({ error: e.message });
+		}
 	}
 };
 
@@ -294,4 +300,5 @@ module.exports = {
 	addUserToProject,
 	removeUserFromProject,
 	getProjectDevs,
+	userHasReadPermission,
 };

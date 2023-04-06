@@ -6,8 +6,9 @@
 	"scripts": {
 		"deploy": "npx prisma db push",
 		"seed": "npx prisma db seed",
-		"start": "nodemon app.js",
-		"prodStart": "npm run deploy && npm run seed && npm start"
+		"start": "nodemon server.js",
+		"prodStart": "npm run deploy && npm run seed && npm start",
+		"test": "jest --watch --silent=true"
 	},
 	"prisma": {
 		"seed": "node prisma/seed.js"
@@ -17,6 +18,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@prisma/client": "^4.8.1",
+		"@types/jest": "^29.5.0",
 		"bcrypt": "^5.1.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.3",
@@ -29,6 +31,9 @@
 	},
 	"devDependencies": {
 		"jest": "^29.5.0",
-		"prisma": "^4.8.1"
+		"jest-mock-extended": "^3.0.4",
+		"node-mocks-http": "^1.12.2",
+		"prisma": "^4.8.1",
+		"supertest": "^6.3.3"
 	}
 }

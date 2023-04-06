@@ -1,10 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const getIsoDate = (dateStr) => {
-	const date = new Date(dateStr);
-	return date.toISOString();
-};
+const { getIsoDate } = require('../utils/dates');
 
 async function main() {
 	const testManager = await prisma.user.upsert({

@@ -12,15 +12,17 @@ const {
 	authorizeRole,
 } = require('../middleware/authMiddleware');
 
-router.get('/', authorizeUser, authorizeRole(['MANAGER', 'ADMIN']), getUsers);
 router.get(
 	'/assignable',
 	authorizeUser,
 	authorizeRole(['MANAGER', 'ADMIN']),
 	getAssignableUsers
 );
-router.get('/:id', authorizeUser, authorizeRole('ADMIN'), getUserById);
+
+router.get('/', authorizeUser, authorizeRole(['MANAGER', 'ADMIN']), getUsers);
 router.post('/', createUser);
+
+router.get('/:id', authorizeUser, authorizeRole('ADMIN'), getUserById);
 router.patch('/:id', authorizeUser, authorizeRole('ADMIN'), updateUser);
 
 module.exports = router;

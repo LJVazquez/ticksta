@@ -13,20 +13,25 @@ const {
 const { authorizeRole } = require('../middleware/authMiddleware');
 
 router.get('/', getProjects);
+router.post('/', authorizeRole('MANAGER'), createProject);
+
 router.get('/:id', getProjectById);
-router.get('/:id/devs', authorizeRole(['MANAGER', 'ADMIN']), getProjectDevs);
+router.patch('/:id', authorizeRole(['MANAGER', 'ADMIN']), updateProject);
+
 router.get(
 	'/latest/:amount',
 	authorizeRole(['MANAGER', 'ADMIN']),
 	getLatestProjects
 );
-router.post('/', authorizeRole('MANAGER'), createProject);
-router.patch('/:id', authorizeRole(['MANAGER', 'ADMIN']), updateProject);
+
 router.post(
 	'/:id/add-member',
 	authorizeRole(['MANAGER', 'ADMIN']),
 	addUserToProject
 );
+
+router.get('/:id/devs', authorizeRole(['MANAGER', 'ADMIN']), getProjectDevs);
+
 router.post(
 	'/:id/remove-member',
 	authorizeRole(['MANAGER', 'ADMIN']),

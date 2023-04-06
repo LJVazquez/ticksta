@@ -2,7 +2,6 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
 const { validateLoginData } = require('../utils/schemaValidators');
 
 const login = async (req, res) => {
@@ -35,9 +34,6 @@ const login = async (req, res) => {
 				userRole: user.role,
 			};
 			const jwt = await createToken(tokenData);
-			const jwtRefresh = await createRefreshToken(tokenData);
-
-			storeRefreshToken(email, jwtRefresh);
 
 			res.json({ jwt });
 		} else {
@@ -56,13 +52,8 @@ const getLoggedUserData = (req, res) => {
 	res.json(authData);
 };
 
-const getUserByEmail = async (email, password) => {
-	try {
-		return await prisma.user.findUnique({ where: { email: email } });
-	} catch (e) {
-		console.error(e.message);
-		res.status(500).json({ error: e.message });
-	}
+const getUserByEmail = async (email) => {
+	return await prisma.user.findUnique({ where: { email: email } });
 };
 
 const createToken = async (data) => {
@@ -72,29 +63,4 @@ const createToken = async (data) => {
 	return token;
 };
 
-const createRefreshToken = async (data) => {
-	const refreshToken = await jwt.sign(data, process.env.TOKEN_SECRET, {
-		expiresIn: '1 days',
-	});
-	return refreshToken;
-};
-
-const storeRefreshToken = async (email, token) => {
-	const dateNow = new Date();
-	const isoDateNow = dateNow.toISOString();
-
-	try {
-		const updatedUser = await prisma.user.update({
-			where: { email: email },
-			data: { jwtRefresh: token, jwtRefreshDate: isoDateNow },
-		});
-
-		if (updatedUser) {
-			return true;
-		}
-	} catch (e) {
-		console.error(e.me);
-	}
-};
-
-module.exports = { login, getLoggedUserData };
+module.exports = { login, getLoggedUserData, getUserByEmail, createToken };

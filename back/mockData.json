@@ -1,0 +1,27 @@
+{
+    "testManager": {
+        "email":" manager@ticksta.com",
+			"password":" $2b$10$voK2bcjGJmxot/NACnuLO.vTIy0zjXcdR5W..GJ.6H435/In9hrUG",
+			"name":" Test Manager",
+			"role":" MANAGER",
+			"createdProjects": {
+				"create": [
+					{
+						"id": 1,
+						"name":" Reserva catastrofica",
+						"description":
+							Proyecto derivado" de la norma 32312 del consorcio de Seguros de la camara de seguridad Argentina",
+						"createdAt": getIsoDate('2022-10-20'),
+					},
+					{
+						"id": 2,
+						"name":" Migracion servidor Kront3 a AWS",
+						"description":
+							"Migracion del servidor principal de la app Kront3 a AWS",
+						"createdAt": getIsoDate('2022-10-20'),
+					},
+				],
+			},
+    }
+}
+

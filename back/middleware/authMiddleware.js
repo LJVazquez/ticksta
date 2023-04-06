@@ -1,4 +1,3 @@
-const e = require('express');
 const jwt = require('jsonwebtoken');
 
 const authorizeUser = async (req, res, next) => {
@@ -11,10 +10,6 @@ const authorizeUser = async (req, res, next) => {
 
 	try {
 		const decodedToken = await jwt.verify(token, process.env.TOKEN_SECRET);
-
-		if (!decodedToken) {
-			return res.status(401).json({ error: 'token incorrecto' });
-		}
 
 		req.authData = decodedToken;
 		next();

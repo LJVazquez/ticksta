@@ -1,0 +1,135 @@
+{
+	"adminCredentials": {
+		"email": "admin@ticksta.com",
+		"password": "123123"
+	},
+	"managerCredentials": {
+		"email": "manager@ticksta.com",
+		"password": "123123"
+	},
+	"devCredentials": {
+		"email": "dev@ticksta.com",
+		"password": "123123"
+	},
+	"userCredentials": {
+		"email": "user@ticksta.com",
+		"password": "123123"
+	},
+	"dev": {
+		"id": 2,
+		"name": "Test Dev",
+		"email": "dev@ticksta.com",
+		"role": "DEV"
+	},
+	"manager": {
+		"id": 1,
+		"name": "Test manager",
+		"email": "manager@ticksta.com",
+		"role": "MANAGER"
+	},
+	"user": {
+		"id": 3,
+		"name": "Test user",
+		"email": "user@ticksta.com",
+		"role": "USER"
+	},
+	"ticketstTestProject": {
+		"data": {
+			"name": "Tickets integration test project",
+			"description": "Test project description",
+			"authorId": 1,
+			"assignedUsers": {
+				"connect": [
+					{
+						"id": 2
+					},
+					{
+						"id": 3
+					}
+				]
+			},
+			"tickets": {
+				"create": [
+					{
+						"subject": "Integration test Tickets",
+						"description": "Mock ticket for tickets integration tests",
+						"status": "OPEN",
+						"assignedToId": 2,
+						"type": "ISSUE",
+						"authorId": 3
+					},
+					{
+						"subject": "Integration test Tickets 2",
+						"description": "Mock ticket for tickets integration tests 2",
+						"status": "CLOSED",
+						"type": "ISSUE",
+						"authorId": 1
+					}
+				]
+			}
+		},
+		"include": {
+			"tickets": true
+		}
+	},
+	"ticketMessagesTestProject": {
+		"data": {
+			"name": "Tickets integration test project",
+			"description": "Test project description",
+			"authorId": 1,
+			"assignedUsers": {
+				"connect": [
+					{
+						"id": 2
+					},
+					{
+						"id": 3
+					}
+				]
+			},
+			"tickets": {
+				"create": [
+					{
+						"subject": "Integration test ticket messages",
+						"description": "Mock ticket for ticket messages integration tests",
+						"status": "OPEN",
+						"assignedToId": 2,
+						"type": "ISSUE",
+						"authorId": 1,
+						"ticketMessages": {
+							"create": [
+								{
+									"userId": 1,
+									"message": "Mock ticket message 1"
+								},
+								{
+									"userId": 2,
+									"message": "Mock ticket message 1"
+								},
+								{
+									"userId": 3,
+									"message": "Mock ticket message 1"
+								},
+								{
+									"userId": 4,
+									"message": "Mock ticket message 1"
+								}
+							]
+						}
+					},
+					{
+						"subject": "Integration test ticket messages 2",
+						"description": "Mock ticket for ticket messages integration tests 2",
+						"status": "CLOSED",
+						"assignedToId": 2,
+						"type": "ISSUE",
+						"authorId": 1
+					}
+				]
+			}
+		},
+		"include": {
+			"tickets": true
+		}
+	}
+}

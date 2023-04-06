@@ -55,10 +55,10 @@ const createTicketMessage = async (req, res) => {
 			},
 		});
 
-		res.json(newMessage);
+		res.status(201).json(newMessage);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta });
+		res.status(500).json({ error: e.message });
 	}
 };
 
@@ -83,11 +83,12 @@ const getLatestTicketMessages = async (req, res) => {
 		res.json(messages);
 	} catch (e) {
 		console.error(e);
-		res.status(500).json({ error: e.meta.cause });
+		res.status(500).json({ error: e.message });
 	}
 };
 
 module.exports = {
 	createTicketMessage,
 	getLatestTicketMessages,
+	userHasCommentPermission,
 };
