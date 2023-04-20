@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
-import Input from '../components/Input';
-import SubmitButton from '../components/SubmitButton';
-import { createUser } from '../services/users';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import { registerInputConstraints } from '../utils/constraints';
 import { useState } from 'react';
 
+import { createUser } from '../services/users';
+import { registerInputConstraints } from '../utils/constraints';
+import Input from '../components/Input';
+import SubmitButton from '../components/SubmitButton';
 import ticketHero from '../img/ticket-hero.png';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
 
 export default function RegisterForm({ setIsUserCreated }) {
 	const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +73,7 @@ export default function RegisterForm({ setIsUserCreated }) {
 				rhfData={register('password', registerInputConstraints['password'])}
 			/>
 
-			<SubmitButton name={'Login'} isLoading={isLoading} />
+			<SubmitButton name={'Registrar'} isLoading={isLoading} />
 		</form>
 	);
 }

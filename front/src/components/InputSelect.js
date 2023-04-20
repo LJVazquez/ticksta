@@ -15,7 +15,9 @@ export default function InputSelect({ name, options, rhfData, error }) {
 					</option>
 				))}
 			</select>
-			<small className="text-danger">{error?.message}</small>
+			<small className="text-danger" data-testid="error-message">
+				{error?.message}
+			</small>
 		</div>
 	);
 }

@@ -1,6 +1,11 @@
 export default function SubmitButton({ name, isLoading, loadingMessage }) {
 	return isLoading ? (
-		<button className="btn btn-primary" disabled>
+		<button
+			className="btn btn-primary"
+			disabled
+			aria-label="loading-button"
+			data-testid="loading-button"
+		>
 			<span className="spinner-border spinner-border-sm me-2"></span>
 			{loadingMessage}
 		</button>

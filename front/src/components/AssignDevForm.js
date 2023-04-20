@@ -11,7 +11,7 @@ const smallAnimationSettings = {
 	exit: { opacity: 0 },
 };
 
-export default function ChangeTicketStatusForm({ ticket, setTicket }) {
+export default function AssignDevForm({ ticket, setTicket }) {
 	const [selectedDevEmail, setSelectedDevEmail] = useState('');
 	const [projectDevs, setProjectDevs] = useState();
 	const { authToken } = useContext(AuthContext);
@@ -80,7 +80,11 @@ export default function ChangeTicketStatusForm({ ticket, setTicket }) {
 				</div>
 				<datalist id="members">
 					{projectDevs?.map((dev) => (
-						<option key={dev.id + dev.name} value={dev.email}>
+						<option
+							key={dev.id + dev.name}
+							value={dev.email}
+							data-testid={dev.id + dev.name}
+						>
 							{dev.name}
 						</option>
 					))}
@@ -88,7 +92,11 @@ export default function ChangeTicketStatusForm({ ticket, setTicket }) {
 			</form>
 			<AnimatePresence>
 				{devChanged && (
-					<motion.small className="text-success" {...smallAnimationSettings}>
+					<motion.small
+						className="text-success"
+						data-testid="success-message"
+						{...smallAnimationSettings}
+					>
 						<i className="bi bi-check me-1"></i>Desarrollador asignado
 					</motion.small>
 				)}

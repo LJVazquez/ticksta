@@ -1,13 +1,14 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createTicket } from '../services/tickets';
-import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import SubmitButton from '../components/SubmitButton';
-import Input from '../components/Input';
-import TextArea from '../components/TextArea';
+
+import { AuthContext } from '../context/AuthContext';
+import { createTicket } from '../services/tickets';
 import { newTicketConstraints } from '../utils/constraints';
+import Input from '../components/Input';
+import SubmitButton from '../components/SubmitButton';
+import TextArea from '../components/TextArea';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
 
 export default function NewTicketForm() {
 	const [isNewTicketLoading, setIsNewTicketLoading] = useState(false);
@@ -50,7 +51,7 @@ export default function NewTicketForm() {
 			<div className="card-body">
 				<h3 className="card-title">Crear nuevo ticket</h3>
 				<hr />
-				{error && <div class="alert alert-danger">{error}</div>}
+				{error && <div className="alert alert-danger">{error}</div>}
 				<Input
 					name={'Tema'}
 					error={errors.subject}

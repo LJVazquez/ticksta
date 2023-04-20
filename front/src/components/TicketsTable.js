@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+
 import {
 	formatDate,
-	ticketStatusEquivalent,
 	ticketStatusBackgroundColors,
+	ticketStatusEquivalent,
 } from '../utils/formats';
-
-import { motion, AnimatePresence } from 'framer-motion';
 
 const trAnimationSettings = {
 	initial: { opacity: 0 },
@@ -60,14 +60,14 @@ const getTicketRows = (tickets) => {
 						</Link>
 					</td>
 
+					<td className="text-nowrap">{ticket.author.name}</td>
+					<td className="text-nowrap">
+						{ticket.assignedTo?.name || 'Sin asignar'}
+					</td>
 					<td>
 						<span className={`badge ${badgeColor}`}>
 							{ticketStatusEquivalent[ticket.status]}
 						</span>
-					</td>
-					<td className="text-nowrap">{ticket.author.name}</td>
-					<td className="text-nowrap">
-						{ticket.assignedTo?.name || 'Sin asignar'}
 					</td>
 					<td>{createdAt}</td>
 				</motion.tr>

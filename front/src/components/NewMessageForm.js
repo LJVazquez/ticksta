@@ -1,12 +1,13 @@
-import { createTicketMessage } from '../services/ticketMessages';
-import TextArea from '../components/TextArea';
-import SubmitButton from '../components/SubmitButton';
 import { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import { AuthContext } from '../context/AuthContext';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+
+import { AuthContext } from '../context/AuthContext';
+import { createTicketMessage } from '../services/ticketMessages';
 import { newMessageConstraint } from '../utils/constraints';
+import SubmitButton from '../components/SubmitButton';
+import TextArea from '../components/TextArea';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
 
 export default function NewMessageForm({ setTicketMessages }) {
 	const [isNewMessageLoading, setIsNewMessageLoading] = useState(false);

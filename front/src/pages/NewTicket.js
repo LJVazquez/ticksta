@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
-import Layout from '../components/Layout';
-import { useContext, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { createTicket } from '../services/tickets';
-import { AuthContext } from '../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import SubmitButton from '../components/SubmitButton';
-import Input from '../components/Input';
-import TextArea from '../components/TextArea';
-import { newTicketConstraints } from '../utils/constraints';
-import InputSelect from '../components/InputSelect';
+
 import {
 	ticketPrioritiesEquivalent,
 	ticketTypesEquivalent,
 } from '../utils/formats';
-import ErrorAlert from '../components/ErrorAlert';
+import { AuthContext } from '../context/AuthContext';
+import { createTicket } from '../services/tickets';
 import { fetchProjectById } from '../services/projects';
+import { newTicketConstraints } from '../utils/constraints';
+import ErrorAlert from '../components/ErrorAlert';
+import Input from '../components/Input';
 import InputReadOnly from '../components/InputReadOnly';
+import InputSelect from '../components/InputSelect';
+import Layout from '../components/Layout';
+import SubmitButton from '../components/SubmitButton';
+import TextArea from '../components/TextArea';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
 
 export default function NewTicket() {
 	const [isNewTicketLoading, setIsNewTicketLoading] = useState(false);
 	const [project, setProject] = useState();
 	const [error, setError] = useState(null);
-	const { authUser, authToken } = useContext(AuthContext);
+	const { authToken } = useContext(AuthContext);
 
 	const { projectId } = useParams();
 

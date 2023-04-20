@@ -82,7 +82,11 @@ export default function AddMemberForm({
 
 			<datalist id="members">
 				{assignableUsers?.map((user) => (
-					<option key={user.id + user.name} value={user.email}>
+					<option
+						key={user.id + user.name}
+						value={user.email}
+						data-testid={user.id + user.name}
+					>
 						{user.name}
 					</option>
 				))}

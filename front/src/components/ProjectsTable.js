@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { formatDate } from '../utils/formats';
-
 import { motion, AnimatePresence } from 'framer-motion';
+
+import { formatDate } from '../utils/formats';
 
 const trAnimationSettings = {
 	initial: { opacity: 0 },

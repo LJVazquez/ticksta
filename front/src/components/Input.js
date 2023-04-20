@@ -10,7 +10,9 @@ export default function Input({ name, type = 'text', rhfData, error }) {
 				{...rhfData}
 				className={`form-control rounded-3 ${error && 'is-invalid'}`}
 			/>
-			<small className="text-danger">{error?.message}</small>
+			<small className="text-danger" data-testid="error-message">
+				{error?.message}
+			</small>
 		</div>
 	);
 }

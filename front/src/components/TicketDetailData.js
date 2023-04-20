@@ -58,7 +58,7 @@ export default function TicketDetailData({ ticket, setTicket }) {
 					</div>
 					<div className="col-6 d-flex align-items-center">
 						<InputReadOnly value={ticketPrioritiesEquivalent[ticket.priority]}>
-							Priridad
+							Prioridad
 						</InputReadOnly>
 					</div>
 					<div className="col-6 d-flex align-items-center">

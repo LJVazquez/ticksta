@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 
 export default function ProjectsPageHeader(props) {
 	const { searchValue, setSearchValue } = props;

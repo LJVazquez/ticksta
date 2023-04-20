@@ -1,9 +1,11 @@
-import { useContext, useState } from 'react';
-import { UserRoleEquivalent } from '../utils/formats';
-import { changeUserRole } from '../services/users';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import { AuthContext } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useContext, useState } from 'react';
+
+import { AuthContext } from '../context/AuthContext';
+import { changeUserRole } from '../services/users';
+import { UserRoleEquivalent } from '../utils/formats';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
+
 const smallAnimationSettings = {
 	initial: { opacity: 0 },
 	animate: { opacity: 1 },
@@ -61,14 +63,22 @@ export default function UserRoleTd({ user, setUsers }) {
 			);
 		} else if (roleChangeSuccess) {
 			return (
-				<motion.small className="ms-2 text-success" {...smallAnimationSettings}>
+				<motion.small
+					className="ms-2 text-success"
+					{...smallAnimationSettings}
+					data-testid="role-change-success"
+				>
 					<i className="bi bi-check-lg"></i>
 				</motion.small>
 			);
 		}
 
 		return (
-			<button className="btn py-0" onClick={() => setEditMode(true)}>
+			<button
+				className="btn py-0"
+				onClick={() => setEditMode(true)}
+				aria-label="change role"
+			>
 				<i className="bi bi-pencil-fill text-warning"></i>
 			</button>
 		);
@@ -88,7 +98,7 @@ export default function UserRoleTd({ user, setUsers }) {
 						<option value="USER">Usuario</option>
 						<option value="DEV">Desarrollador</option>
 					</select>
-					<button className="btn btn-sm">
+					<button className="btn btn-sm" aria-label="confirm change role">
 						<i className="bi bi-arrow-left-right text-info"></i>
 					</button>
 				</form>

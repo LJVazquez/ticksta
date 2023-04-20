@@ -21,19 +21,21 @@ const getSkeleton = () => {
 	return tableRows;
 };
 
-const getUsersRows = (users, removeMember) => {
+const getUsersRows = (users, removeMember, authUser) => {
 	return users?.length > 0 ? (
 		users.map((user) => {
 			return (
 				<tr key={user.id + user.name}>
 					<td className="text-nowrap">{user.name}</td>
 					<td className="text-nowrap">{user.email}</td>
-					<td className="text-nowrap">011-2232-2123</td>
 					<td className="text-nowrap">{UserRoleEquivalent[user.role]}</td>
-					<RemoveMemberTd
-						user={user}
-						removeMember={() => removeMember(user.email)}
-					/>
+					{(authUser.userRole === 'MANAGER' ||
+						authUser.userRole === 'ADMIN') && (
+						<RemoveMemberTd
+							user={user}
+							removeMember={() => removeMember(user.email)}
+						/>
+					)}
 				</tr>
 			);
 		})
@@ -108,13 +110,14 @@ export default function ProjectUsersTable({ users, addMember, removeMember }) {
 						<tr>
 							<th>Nombre</th>
 							<th>Email</th>
-							<th>Tel.</th>
 							<th>Rol</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						{users ? getUsersRows(users, removeMember) : getSkeleton()}
+						{users
+							? getUsersRows(users, removeMember, authUser)
+							: getSkeleton()}
 					</tbody>
 				</table>
 			</div>

@@ -22,9 +22,6 @@ export const newTicketConstraints = {
 			message: 'Maximo 300 caracteres',
 		},
 	},
-	description: {
-		required: 'Por favor seleccione tipo',
-	},
 };
 
 export const newProjectConstraints = {

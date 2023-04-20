@@ -1,17 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { AuthContext } from '../context/AuthContext';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import { newProjectConstraints } from '../utils/constraints';
 import { formatDate } from '../utils/formats';
+import { newProjectConstraints } from '../utils/constraints';
+import { updateProject } from '../services/projects';
 import ErrorAlert from './ErrorAlert';
-import MsgAlert from './MsgAlert';
 import Input from './Input';
 import InputReadOnly from './InputReadOnly';
+import MsgAlert from './MsgAlert';
 import SubmitButton from './SubmitButton';
 import TextArea from './TextArea';
 import TextAreaReadOnly from './TextAreaReadOnly';
-import { updateProject } from '../services/projects';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
 
 export default function ProjectDetailData({ project, setProject }) {
 	const [editMode, setEditMode] = useState(false);

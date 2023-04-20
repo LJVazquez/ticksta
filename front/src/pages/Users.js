@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import UsersTable from '../components/UsersTable';
-import { fetchAllUsers } from '../services/users';
+
 import { AuthContext } from '../context/AuthContext';
+import { fetchAllUsers } from '../services/users';
+import Layout from '../components/Layout';
 import useHandleAxiosError from '../hooks/useHandleAxiosError';
 import usePagination from '../hooks/usePagination';
 import UsersPageHeader from '../components/UsersPageHeader';
+import UsersTable from '../components/UsersTable';
 
 export default function Users() {
 	const [users, setUsers] = useState();

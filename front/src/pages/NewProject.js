@@ -1,17 +1,18 @@
-import Layout from '../components/Layout';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
 import { AuthContext } from '../context/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom';
-import useHandleAxiosError from '../hooks/useHandleAxiosError';
-import SubmitButton from '../components/SubmitButton';
-import Input from '../components/Input';
-import TextArea from '../components/TextArea';
+import { createProject } from '../services/projects';
 import { newProjectConstraints } from '../utils/constraints';
 import ErrorAlert from '../components/ErrorAlert';
-import { createProject } from '../services/projects';
+import Input from '../components/Input';
+import Layout from '../components/Layout';
+import SubmitButton from '../components/SubmitButton';
+import TextArea from '../components/TextArea';
+import useHandleAxiosError from '../hooks/useHandleAxiosError';
 
-export default function NewTicket() {
+export default function NewProject() {
 	const [isNewProjectLoading, setIsNewProjectLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const { authToken } = useContext(AuthContext);
